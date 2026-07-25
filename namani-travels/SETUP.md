@@ -4,17 +4,13 @@ This is written for a non-technical owner. No coding required — just copying, 
 
 ## What you have
 
-A 9-page website, fully responsive, with light/dark mode:
+A 5-page website, fully responsive, with light/dark mode:
 
-- `index.html` — Home
-- `search.html` — Search a Trip (ad landing page)
-- `quote.html` — Get Your Quote (lead capture)
-- `destinations.html` — Destinations / Inspiration
-- `quiz.html` — Find Your Travel Vibe quiz
-- `stories.html` — Blog + testimonials
-- `about.html` — About Us
-- `contact.html` — Contact Us
-- `privacy.html` — Privacy Policy & Terms
+- `index.html` — Home (hero, skippable "what kind of traveler are you" gate, search widget, destination preview, testimonials)
+- `search.html` — Plan a Trip (search widget → quote/contact capture reveals inline, no separate page)
+- `destinations.html` — Explore (destinations grid + travel journal + testimonials, with photo credits)
+- `about.html` — About & Contact (brand story + WhatsApp/Instagram contact block)
+- `privacy.html` — Privacy Policy & Terms (linked from the footer only, not the main nav)
 
 Everything you'll actually need to edit lives in **one file**: `assets/js/config.js`.
 
@@ -55,7 +51,7 @@ instagramHandle: '@namanitravels',
 instagramUrl: 'https://instagram.com/namanitravels',
 ```
 
-And search for `hello@namanitravels.com` across `contact.html`, `privacy.html`, and `assets/js/common.js` — replace with your real email address (use your editor's "Find in Files" / "Find All" feature).
+And search for `hello@namanitravels.com` across `about.html`, `privacy.html`, and `assets/js/common.js` — replace with your real email address (use your editor's "Find in Files" / "Find All" feature).
 
 ---
 
@@ -81,7 +77,7 @@ That's it — Formspree's free plan covers up to 50 submissions/month, which is 
 This gives you a running, sortable spreadsheet of every request — handy for follow-up and reporting.
 
 1. Create a new Google Sheet. In row 1, add these column headers exactly:
-   `Timestamp | Trip Type | From | To | Depart | Return | Adults | Children | Infants | Cabin | Vibe | Destination | Email | Phone`
+   `Timestamp | Trip Type | From | To | Depart | Return | Adults | Children | Infants | Cabin | Special Requests | Traveler Type Match | Email | Phone`
 2. In the Sheet, go to **Extensions → Apps Script**. Delete anything in the editor and paste this:
 
 ```js
@@ -99,8 +95,8 @@ function doPost(e) {
     data.children || '',
     data.infants || '',
     data.cabin || '',
-    data.vibe || '',
-    data.destination || '',
+    data.requests || '',
+    data.quizMatch || '',
     data.email || '',
     data.phone || '',
   ]);
@@ -108,6 +104,8 @@ function doPost(e) {
     .setMimeType(ContentService.MimeType.JSON);
 }
 ```
+
+`Special Requests` carries any flags a traveller checked in Advanced Search (unaccompanied minor, group trip, accessibility needs, corporate travel) — worth scanning for on every new row so the right person picks up the request. `Traveler Type Match` is filled in only when the lead came through the homepage "what kind of traveler are you" quiz.
 
 3. Click **Deploy → New deployment**. For "Select type", choose **Web app**.
 4. Set **Execute as**: Me. Set **Who has access**: Anyone.
@@ -140,12 +138,12 @@ Every quote request now appends a new row to your sheet **and** emails you via F
 
 ## Step 6 — Connect your real Instagram feed (optional, ~5 minutes)
 
-The Contact page currently shows placeholder travel photos in an Instagram-style grid. To show your *actual* Instagram posts:
+The Contact section (bottom of the About & Contact page) currently shows placeholder travel photos in an Instagram-style grid. To show your *actual* Instagram posts:
 
 1. Sign up at [snapwidget.com](https://snapwidget.com) (or elfsight.com) — free tier available.
 2. Connect your Instagram account and choose a grid-style widget.
 3. They'll give you an embed `<iframe>` snippet.
-4. Open `contact.html`, find the `<div class="instagram-embed">...</div>` block, and replace it with the snippet they gave you.
+4. Open `about.html`, find the `<div class="instagram-embed">...</div>` block, and replace it with the snippet they gave you.
 
 ---
 
@@ -155,7 +153,7 @@ Both Meta and Google require a visible Privacy Policy before you can run ads col
 
 1. Open `privacy.html` and replace `[insert date when you publish this page]` with today's date.
 2. Have a lawyer (even a quick paid consult) sanity-check the policy against your country's data protection law — it's written as a plain-language starting point, not legal advice.
-3. If Meta/Google give you a "pixel" tracking snippet, paste it right before the `</head>` tag in every HTML page (yes, all 9 — this is a plain HTML site, there's no shared template file). Ask your ad platform's support if you get stuck; this part is copy-paste from their dashboard.
+3. If Meta/Google give you a "pixel" tracking snippet, paste it right before the `</head>` tag in every HTML page (yes, all 5 — this is a plain HTML site, there's no shared template file). Ask your ad platform's support if you get stuck; this part is copy-paste from their dashboard.
 
 ---
 
@@ -163,15 +161,20 @@ Both Meta and Google require a visible Privacy Policy before you can run ads col
 
 Go through this checklist live on your Netlify URL:
 
-- [ ] Home page loads, hero background cycles through photos, plane animation is visible
+- [ ] Home page loads: passport intro plays once, then the "what kind of traveler are you" gate appears — try both Skip and answering it
 - [ ] Toggle dark mode — check it looks right on every page, not just Home
 - [ ] Shrink the browser (or open on your phone) — menu collapses into the mobile drawer correctly
-- [ ] Search a route on `search.html` → confirm it lands on `quote.html` with your route/dates shown correctly
-- [ ] Take the quiz on `quiz.html` → confirm the matched destination/vibe shows on `quote.html`
+- [ ] On `search.html`, try every cabin class button (Economy/Premium/Business/First) and confirm it's obviously selectable
+- [ ] Submit a search → confirm the quote panel reveals inline (no page reload) with your route/dates/class shown correctly
+- [ ] Check a special request (e.g. "Group trip") and confirm it shows up in the quote summary
+- [ ] Take the traveler-type quiz on Home → confirm the matched destination shows when you land on `search.html`
+- [ ] On the quiz, pick "Business trip" → confirm it routes to a corporate result and pre-sets Business class + the Corporate travel flag on `search.html`
 - [ ] Submit the quote form with a real email/phone → check it arrives in your email (Formspree) **and** appears as a new row in your Google Sheet
 - [ ] Click every WhatsApp button/bubble → confirm it opens WhatsApp with your number and a sensible pre-filled message
-- [ ] Click through to Destinations, filter by each vibe (Beach/City/Adventure/Culture)
+- [ ] Click through to Explore (`destinations.html`), filter by each category (Beach/City/Adventure/Culture), and scroll down to confirm the Stories section is there too
+- [ ] Check `about.html` — confirm the Contact block near the bottom works
 - [ ] Check `privacy.html` reads correctly and the date is updated
+- [ ] Footer's "Retake Traveler Quiz" link reopens the gate from any page
 
 ---
 
@@ -190,4 +193,4 @@ The search bar currently recognizes about 120 major world airports (enough to de
 
 ## Questions?
 
-Everything customer-facing lives in the 9 HTML files at the root of this folder. Everything you're likely to actually need to touch — phone number, email, links — lives in `assets/js/config.js`. If something breaks, that's the first file to check.
+Everything customer-facing lives in the 5 HTML files at the root of this folder. Everything you're likely to actually need to touch — phone number, email, links — lives in `assets/js/config.js`. If something breaks, that's the first file to check.

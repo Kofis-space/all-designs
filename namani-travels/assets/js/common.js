@@ -5,12 +5,9 @@
 
 const NAV_LINKS = [
   { href: 'index.html', label: 'Home', page: 'home' },
-  { href: 'search.html', label: 'Search', page: 'search' },
-  { href: 'destinations.html', label: 'Destinations', page: 'destinations' },
-  { href: 'quiz.html', label: 'Find Your Vibe', page: 'quiz' },
-  { href: 'stories.html', label: 'Stories', page: 'stories' },
+  { href: 'search.html', label: 'Plan a Trip', page: 'search' },
+  { href: 'destinations.html', label: 'Explore', page: 'destinations' },
   { href: 'about.html', label: 'About', page: 'about' },
-  { href: 'contact.html', label: 'Contact', page: 'contact' },
 ];
 
 function renderHeader() {
@@ -72,17 +69,17 @@ function renderFooter() {
           <div>
             <h4>Explore</h4>
             <ul>
-              <li><a href="search.html">Search a Trip</a></li>
+              <li><a href="search.html">Plan a Trip</a></li>
               <li><a href="destinations.html">Destinations</a></li>
-              <li><a href="quiz.html">Find Your Vibe</a></li>
-              <li><a href="stories.html">Stories</a></li>
+              <li><a href="destinations.html#stories">Travel Stories</a></li>
+              <li><a href="index.html#retake-quiz">Retake Traveler Quiz</a></li>
             </ul>
           </div>
           <div>
             <h4>Company</h4>
             <ul>
               <li><a href="about.html">About Us</a></li>
-              <li><a href="contact.html">Contact</a></li>
+              <li><a href="about.html#contact">Contact</a></li>
               <li><a href="privacy.html">Privacy Policy</a></li>
             </ul>
           </div>

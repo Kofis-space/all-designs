@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Namani Travels — Travel That Feels Like Peace</title>
+<title>Namani Travels — Namani Means Peace</title>
 <meta name="description" content="Namani Travels plans adventurous, unhurried trips — search flights, get a real human quote, and let us handle the rest." />
 <link rel="stylesheet" href="assets/css/style.css" />
 </head>
@@ -18,12 +18,20 @@
         <div class="passport__stamp">FLY<br/>NAMANI</div>
       </div>
       <div class="passport__cover">
-        <div class="emblem" data-icon="plane"></div>
+        <div class="emblem globe-loader">
+          <span class="globe-loader__globe"></span>
+          <span class="globe-loader__orbit" data-icon="plane"></span>
+        </div>
         <h2>Namani</h2>
         <span>Travel Document</span>
       </div>
     </div>
     <button class="passport__skip" id="passport-skip">Skip intro</button>
+  </div>
+
+  <!-- Skippable traveler-type gate -->
+  <div class="persona-gate is-hidden" id="persona-gate">
+    <div id="persona-gate-mount"></div>
   </div>
 
   <div id="site-header"></div>
@@ -37,17 +45,12 @@
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Dubai_Skyline_mit_Burj_Khalifa_%28cropped%29.jpg/1920px-Dubai_Skyline_mit_Burj_Khalifa_%28cropped%29.jpg" alt="Dubai, UAE" />
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Maasai_Mara_National_Reserve_Kenya.jpg/1920px-Maasai_Mara_National_Reserve_Kenya.jpg" alt="Maasai Mara, Kenya" />
       </div>
-      <div class="plane-layer">
-        <svg class="plane-trail" viewBox="0 0 1000 120" preserveAspectRatio="none"><path d="M -50 60 Q 300 10, 550 55 T 1050 40" /></svg>
-        <span class="plane" data-icon="plane"></span>
-        <span class="plane plane--2" data-icon="plane"></span>
-      </div>
 
       <div class="container">
         <div class="hero__content reveal is-visible">
-          <span class="eyebrow">Namani means peace</span>
-          <h1>Travel that feels&nbsp;like&nbsp;peace, not a checklist.</h1>
-          <p>We plan adventurous, unhurried trips — you tell us the vibe, we handle flights, timing, and the thousand tiny details. Real humans, real quotes, no bots.</p>
+          <span class="eyebrow">Adventurous, unhurried travel</span>
+          <h1>Namani means peace. Now let's go find some, somewhere new.</h1>
+          <p>Tell us the trip you're picturing — we handle flights, timing, and the thousand tiny details. Real humans, real quotes, no bots.</p>
 
           <div class="hero__stats">
             <div><strong>25+</strong><span>Destinations curated</span></div>
@@ -57,6 +60,13 @@
         </div>
 
         <div id="home-search-widget"></div>
+      </div>
+    </section>
+
+    <!-- PERSONALIZATION BANNER (shown only if a traveler type is already on file) -->
+    <section class="section--tight" style="padding-bottom:0;">
+      <div class="container">
+        <div class="persona-banner" id="persona-banner" hidden></div>
       </div>
     </section>
 
@@ -93,7 +103,7 @@
       <div class="container">
         <div class="section-head reveal">
           <div>
-            <span class="eyebrow">Where the vibe takes you</span>
+            <span class="eyebrow">A few favorites</span>
             <h2>A few places worth the flight.</h2>
           </div>
           <a href="destinations.html" class="btn btn-outline">See all destinations</a>
@@ -113,43 +123,15 @@
       </div>
     </section>
 
-    <!-- QUIZ CTA -->
-    <section class="section">
-      <div class="container">
-        <div class="two-col reveal">
-          <div>
-            <span class="eyebrow">Not sure yet?</span>
-            <h2>Take the 60-second Travel Vibe quiz.</h2>
-            <p>Six quick questions. We'll match you to a vibe — beach, city escape, adventure, or culture — and a destination to go with it, then take it straight into your quote.</p>
-            <a href="quiz.html" class="btn btn-primary">Find My Travel Vibe</a>
-          </div>
-          <div class="grid grid-2" style="gap:16px;">
-            <div class="card" style="aspect-ratio:1;">
-              <div class="card__media" style="aspect-ratio:1;">
-                <span class="badge badge--beach card__badge" data-icon="beach">Beach</span>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Anse_Lazio_Beach%2C_Seychelles_%2838720921075%29.jpg/960px-Anse_Lazio_Beach%2C_Seychelles_%2838720921075%29.jpg" alt="Seychelles" loading="lazy" />
-              </div>
-            </div>
-            <div class="card" style="aspect-ratio:1;margin-top:28px;">
-              <div class="card__media" style="aspect-ratio:1;">
-                <span class="badge badge--adventure card__badge" data-icon="adventure">Adventure</span>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Wildebeest_Migration_in_Serengeti_National_Park%2C_Tanzania.jpg/960px-Wildebeest_Migration_in_Serengeti_National_Park%2C_Tanzania.jpg" alt="Tanzania" loading="lazy" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- TESTIMONIALS -->
-    <section class="section section--alt">
+    <section class="section">
       <div class="container">
         <div class="section-head reveal">
           <div>
             <span class="eyebrow">Real trips, real people</span>
-            <h2>Travellers who found their vibe.</h2>
+            <h2>Travellers who found their fit.</h2>
           </div>
-          <a href="stories.html" class="btn btn-outline">Read more stories</a>
+          <a href="destinations.html#stories" class="btn btn-outline">Read more stories</a>
         </div>
         <div class="grid grid-3 reveal-stagger">
           <div class="card">
@@ -169,7 +151,7 @@
           <div class="card">
             <div class="card__body">
               <span class="badge badge--adventure" style="margin-bottom:14px;" data-icon="adventure">Kenya</span>
-              <p style="font-size:1rem;color:var(--text);">"Took the vibe quiz as a joke during a boring meeting. Three weeks later I was in the Mara. Genuinely life-changing trip."</p>
+              <p style="font-size:1rem;color:var(--text);">"Answered a couple of quick questions on the site as a joke during a boring meeting. Three weeks later I was in the Mara."</p>
               <div class="card__meta"><span>— Chidi N.</span><span>★★★★★</span></div>
             </div>
           </div>
@@ -181,7 +163,7 @@
     <section class="section text-center">
       <div class="container reveal" style="max-width:600px;">
         <h2>Ready when you are.</h2>
-        <p>Search a route, take the quiz, or just say hi — however you'd rather start.</p>
+        <p>Search a route or just say hi — however you'd rather start.</p>
         <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
           <a href="search.html" class="btn btn-primary">Plan My Trip</a>
           <a href="#" id="cta-whatsapp" class="btn btn-outline">Message Us on WhatsApp</a>
@@ -199,6 +181,7 @@
   <script src="assets/js/airports.js"></script>
   <script src="assets/js/common.js"></script>
   <script src="assets/js/search-widget.js"></script>
+  <script src="assets/js/quiz.js"></script>
   <script src="assets/js/animations.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {

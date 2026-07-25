@@ -4,10 +4,14 @@
 
 function initPassportIntro() {
   const scene = document.getElementById('passport-intro');
-  if (!scene) return;
+  if (!scene) { if (typeof initPersonaGate === 'function') initPersonaGate(); return; }
 
   const seen = sessionStorage.getItem('namani-passport-seen');
-  if (seen) { scene.remove(); return; }
+  if (seen) {
+    scene.remove();
+    if (typeof initPersonaGate === 'function') initPersonaGate();
+    return;
+  }
 
   document.body.style.overflow = 'hidden';
 
@@ -15,7 +19,10 @@ function initPassportIntro() {
     scene.classList.add('is-hidden');
     document.body.style.overflow = '';
     sessionStorage.setItem('namani-passport-seen', '1');
-    setTimeout(() => scene.remove(), 700);
+    setTimeout(() => {
+      scene.remove();
+      if (typeof initPersonaGate === 'function') initPersonaGate();
+    }, 700);
   }
 
   requestAnimationFrame(() => {
@@ -24,6 +31,12 @@ function initPassportIntro() {
 
   scene.querySelector('#passport-skip')?.addEventListener('click', dismiss);
   setTimeout(dismiss, 3400);
+}
+
+function checkRetakeQuizHash() {
+  if (location.hash === '#retake-quiz' && typeof reopenPersonaGate === 'function') {
+    reopenPersonaGate();
+  }
 }
 
 function initInlinePassport() {
@@ -50,4 +63,11 @@ function initInlinePassport() {
 document.addEventListener('DOMContentLoaded', () => {
   initPassportIntro();
   initInlinePassport();
+  checkRetakeQuizHash();
+  if (typeof applyPersonaPersonalization === 'function') applyPersonaPersonalization();
 });
+
+// A same-page click on the footer's "Retake Traveler Quiz" link (already on
+// Home) only changes the hash — it doesn't reload the document, so
+// DOMContentLoaded never fires again. Listen for the hash change directly too.
+window.addEventListener('hashchange', checkRetakeQuizHash);

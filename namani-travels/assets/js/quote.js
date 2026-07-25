@@ -1,11 +1,14 @@
 // ============================================================
-// Namani Travels — Get Your Quote landing page logic.
-// Reads search/quiz query params, renders a confirmation summary +
-// matched vibe/destination, and dual-submits the lead form.
+// Namani Travels — inline "Get Your Quote" panel logic.
+// Lives on the Plan a Trip page (search.html). Reads the trip either
+// from an explicit query string (passed straight from the search
+// widget's onSubmit, no navigation needed) or from the page's own URL
+// (when arriving from Home's widget, or a shared link), renders a
+// confirmation summary, and dual-submits the lead form.
 // ============================================================
 
-function readParams() {
-  const p = new URLSearchParams(window.location.search);
+function readTripParams(queryString) {
+  const p = new URLSearchParams(queryString !== undefined ? queryString : window.location.search);
   return {
     trip: p.get('trip') || '',
     from: p.get('from') || '',
@@ -18,9 +21,7 @@ function readParams() {
     cabin: p.get('cabin') || 'Economy',
     flexible: p.get('flexible') === '1',
     nearby: p.get('nearby') === '1',
-    vibe: p.get('vibe') || '',
-    destination: p.get('destination') || '',
-    fromQuiz: p.get('fromQuiz') === '1',
+    requests: (p.get('requests') || '').split('|').filter(Boolean),
   };
 }
 
@@ -34,7 +35,6 @@ function formatDate(iso) {
 const TRIP_LABELS = { roundtrip: 'Round-trip', oneway: 'One-way', multicity: 'Multi-city' };
 
 function travellerSummary(p) {
-  const total = Number(p.adults) + Number(p.children) + Number(p.infants);
   const bits = [`${p.adults} Adult${p.adults == 1 ? '' : 's'}`];
   if (Number(p.children) > 0) bits.push(`${p.children} Child${p.children == 1 ? '' : 'ren'}`);
   if (Number(p.infants) > 0) bits.push(`${p.infants} Infant${p.infants == 1 ? '' : 's'}`);
@@ -50,20 +50,22 @@ function tripSentence(p) {
   return s;
 }
 
-function renderVibeCard(mount, p) {
-  if (!p.vibe || !p.destination) return;
-  const dest = getDestination(p.destination);
-  const vibeInfo = VIBES[p.vibe];
-  if (!dest || !vibeInfo) return;
+function renderQuizContextCard(mount) {
+  let result;
+  try { result = JSON.parse(sessionStorage.getItem('namani-quiz-result') || 'null'); } catch (e) { result = null; }
+  if (!result || !result.destinationId) { mount.innerHTML = ''; return; }
+  const dest = getDestination(result.destinationId);
+  const info = PERSONAS[result.persona];
+  if (!dest || !info) { mount.innerHTML = ''; return; }
   mount.innerHTML = `
     <div class="card reveal is-visible" style="margin-bottom:28px;">
       <div class="two-col" style="grid-template-columns: 140px 1fr; gap:20px; align-items:center; padding:16px;">
         <div class="card__media" style="aspect-ratio:1; border-radius:var(--radius-md);">
-          <span class="badge ${vibeInfo.badge} card__badge" style="font-size:0.62rem;padding:4px 8px;">${iconSpan(p.vibe)}</span>
+          <span class="badge ${info.badge} card__badge" style="font-size:0.62rem;padding:4px 8px;">${iconSpan(info.vibe)}</span>
           <img src="${dest.img}" alt="${dest.name}" loading="lazy" />
         </div>
         <div>
-          <div class="eyebrow" style="margin-bottom:6px;">Your travel vibe: ${vibeInfo.label}</div>
+          <div class="eyebrow" style="margin-bottom:6px;">Your traveler type: ${info.label}</div>
           <h3 style="margin-bottom:4px;">Matched destination: ${dest.name}</h3>
           <p style="margin:0;font-size:0.9rem;">${dest.blurb}</p>
         </div>
@@ -72,7 +74,7 @@ function renderVibeCard(mount, p) {
   `;
 }
 
-function renderSummary(mount, p) {
+function renderTripSummary(mount, p) {
   const rows = [];
   rows.push(['Trip type', TRIP_LABELS[p.trip] || 'Round-trip']);
   rows.push(['From', p.from || '—']);
@@ -82,6 +84,7 @@ function renderSummary(mount, p) {
   rows.push(['Travellers & Class', travellerSummary(p)]);
   if (p.flexible) rows.push(['Flexible dates', 'Yes, ±3 days']);
   if (p.nearby) rows.push(['Nearby airports', 'Included']);
+  if (p.requests.length) rows.push(['Special requests', p.requests.join(', ')]);
 
   mount.innerHTML = `
     <div class="summary-card reveal is-visible">
@@ -125,16 +128,35 @@ async function submitLead(payload) {
   await Promise.allSettled(tasks);
 }
 
-function initQuotePage() {
-  const p = readParams();
+function initQuotePanel(queryString) {
+  const p = readTripParams(queryString);
   const summaryMount = document.getElementById('quote-summary');
-  const vibeMount = document.getElementById('quote-vibe-card');
-  if (summaryMount) renderSummary(summaryMount, p);
-  if (vibeMount) renderVibeCard(vibeMount, p);
+  const contextMount = document.getElementById('quote-quiz-context');
+  if (summaryMount) renderTripSummary(summaryMount, p);
+  if (contextMount) renderQuizContextCard(contextMount);
+
+  const panel = document.getElementById('quote-form-panel');
+  if (!panel) return;
+  panel.innerHTML = `
+    <div class="summary-card">
+      <h3 style="margin-bottom:6px;">Where should we send it?</h3>
+      <p style="margin-bottom:24px;">Just your email and phone — that's it.</p>
+      <form id="quote-form">
+        <div class="form-group">
+          <label for="qf-email">Email address</label>
+          <input class="form-control" type="email" id="qf-email" placeholder="you@email.com" required />
+        </div>
+        <div class="form-group">
+          <label for="qf-phone">Phone / WhatsApp number</label>
+          <input class="form-control" type="tel" id="qf-phone" placeholder="+234 800 000 0000" required />
+        </div>
+        <button class="btn btn-primary btn-block" id="qf-submit" type="submit">Send My Request</button>
+        <p class="form-hint">We only use this to send your quote and trip updates. Read our <a href="privacy.html">Privacy Policy</a>.</p>
+      </form>
+    </div>
+  `;
 
   const form = document.getElementById('quote-form');
-  if (!form) return;
-
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const email = document.getElementById('qf-email').value.trim();
@@ -144,9 +166,19 @@ function initQuotePage() {
     if (!email || !phone) return;
 
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending your request…';
+    submitBtn.innerHTML = `<span class="globe-loader globe-loader--sm" style="display:inline-flex;vertical-align:-8px;margin-right:8px;"><span class="globe-loader__globe"></span><span class="globe-loader__orbit">${iconSpan('plane')}</span></span> Sending your request…`;
 
-    const payload = { ...p, email, phone, submittedAt: new Date().toISOString() };
+    let quizContext = '';
+    try {
+      const result = JSON.parse(sessionStorage.getItem('namani-quiz-result') || 'null');
+      if (result && result.destinationId) {
+        const dest = getDestination(result.destinationId);
+        const info = PERSONAS[result.persona];
+        if (dest && info) quizContext = `${info.label} → ${dest.name}`;
+      }
+    } catch (e) { /* sessionStorage unavailable — ignore */ }
+
+    const payload = { ...p, requests: p.requests.join(', '), quizMatch: quizContext, email, phone, submittedAt: new Date().toISOString() };
 
     try {
       await submitLead(payload);
@@ -157,7 +189,7 @@ function initQuotePage() {
     const tripLine = p.from && p.to ? ` (${p.from} → ${p.to})` : '';
     const waMessage = `Hi Namani Travels! I just requested a quote${tripLine}. My email is ${email}.`;
 
-    document.getElementById('quote-form-panel').innerHTML = `
+    panel.innerHTML = `
       <div class="confirm-box">
         <div class="check">${iconSpan('check')}</div>
         <h3>We've got your request!</h3>
@@ -167,5 +199,3 @@ function initQuotePage() {
     `;
   });
 }
-
-document.addEventListener('DOMContentLoaded', initQuotePage);

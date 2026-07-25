@@ -1,170 +1,168 @@
 // ============================================================
-// Namani Travels — "Find Your Travel Vibe" quiz.
-// Scores answers into a vibe (beach/city/adventure/culture) and a
-// specific matched destination, then hands both to quote.html.
+// Namani Travels — skippable "what kind of traveler are you" gate.
+// Shown once per session on the Home page (after the passport intro).
+// Business trips skip straight to a corporate result; personal trips
+// get 4 quick questions that sort into a traveler type + a matched
+// destination. Either path can be skipped entirely.
 // ============================================================
 
-const QUIZ_QUESTIONS = [
+const PERSONA_QUESTIONS = [
   {
     q: "Pick your ideal morning.",
     options: [
-      { label: 'Sunrise dip before anyone else is awake', vibe: 'beach', destId: 'bali' },
-      { label: 'Espresso, then a skyline walk', vibe: 'city', destId: 'singapore' },
-      { label: 'A game drive at first light', vibe: 'adventure', destId: 'kenya' },
-      { label: 'Wandering an old town before the crowds', vibe: 'culture', destId: 'santorini' },
+      { label: 'Sunrise dip before anyone else is awake', persona: 'beach', destId: 'bali' },
+      { label: 'Espresso, then a skyline walk', persona: 'city', destId: 'singapore' },
+      { label: 'A game drive at first light', persona: 'adventurer', destId: 'kenya' },
+      { label: 'Wandering an old town before the crowds', persona: 'culture', destId: 'santorini' },
     ],
   },
   {
     q: "Your dream soundtrack right now?",
     options: [
-      { label: 'Waves. Just waves.', vibe: 'beach', destId: 'seychelles' },
-      { label: 'Rooftop beats till 2am', vibe: 'city', destId: 'dubai' },
-      { label: 'Wind, and nothing else', vibe: 'adventure', destId: 'tanzania' },
-      { label: 'Live music spilling out of a café', vibe: 'culture', destId: 'doha' },
+      { label: 'Waves. Just waves.', persona: 'beach', destId: 'seychelles' },
+      { label: 'Rooftop beats till 2am', persona: 'city', destId: 'dubai' },
+      { label: 'Wind, and nothing else', persona: 'adventurer', destId: 'tanzania' },
+      { label: 'Live music spilling out of a café', persona: 'culture', destId: 'doha' },
     ],
   },
   {
     q: "What's in your suitcase?",
     options: [
-      { label: 'One swimsuit, five paperbacks', vibe: 'beach', destId: 'bali' },
-      { label: 'Your sharpest outfit', vibe: 'city', destId: 'tokyo' },
-      { label: 'Boots that have seen things', vibe: 'adventure', destId: 'cape-town' },
-      { label: 'A journal and a good camera', vibe: 'culture', destId: 'santorini' },
-    ],
-  },
-  {
-    q: "Pick a souvenir to bring home.",
-    options: [
-      { label: 'A shell you\'ll forget the story of', vibe: 'beach', destId: 'seychelles' },
-      { label: 'Something from a midnight market', vibe: 'city', destId: 'seoul' },
-      { label: 'A photo you\'ll never stop showing people', vibe: 'adventure', destId: 'kenya' },
-      { label: 'A handwoven something with a story', vibe: 'culture', destId: 'doha' },
-    ],
-  },
-  {
-    q: "Your ideal pace, honestly?",
-    options: [
-      { label: 'Horizontal, mostly', vibe: 'beach', destId: 'bali' },
-      { label: 'Fast — then dinner at 11pm', vibe: 'city', destId: 'singapore' },
-      { label: 'Up before the sun, out till it sets', vibe: 'adventure', destId: 'tanzania' },
-      { label: 'Slow mornings, long lunches', vibe: 'culture', destId: 'santorini' },
+      { label: 'One swimsuit, five paperbacks', persona: 'beach', destId: 'bali' },
+      { label: 'Your sharpest outfit', persona: 'city', destId: 'tokyo' },
+      { label: 'Boots that have seen things', persona: 'adventurer', destId: 'cape-town' },
+      { label: 'A journal and a good camera', persona: 'culture', destId: 'santorini' },
     ],
   },
   {
     q: "Pick a feeling to chase.",
     options: [
-      { label: 'Stillness', vibe: 'beach', destId: 'seychelles' },
-      { label: 'Electricity', vibe: 'city', destId: 'dubai' },
-      { label: 'Awe', vibe: 'adventure', destId: 'cape-town' },
-      { label: 'Wonder', vibe: 'culture', destId: 'doha' },
+      { label: 'Stillness', persona: 'beach', destId: 'seychelles' },
+      { label: 'Electricity', persona: 'city', destId: 'dubai' },
+      { label: 'Awe', persona: 'adventurer', destId: 'cape-town' },
+      { label: 'Wonder', persona: 'culture', destId: 'doha' },
     ],
   },
 ];
 
-function renderQuiz(mountId) {
+function tallyLeisurePersona(answers) {
+  const score = { beach: 0, city: 0, adventurer: 0, culture: 0 };
+  const destScore = {};
+  answers.forEach((a) => {
+    if (!a) return;
+    score[a.persona] += 1;
+    destScore[a.destId] = (destScore[a.destId] || 0) + 1;
+  });
+  const winner = Object.entries(score).sort((a, b) => b[1] - a[1])[0][0];
+  const winnerVibe = PERSONAS[winner].vibe;
+  const candidates = Object.entries(destScore)
+    .filter(([id]) => getDestination(id)?.vibe === winnerVibe)
+    .sort((a, b) => b[1] - a[1]);
+  const destinationId = candidates.length ? candidates[0][0] : DESTINATIONS.find((d) => d.vibe === winnerVibe).id;
+  return { persona: winner, destinationId };
+}
+
+function dismissPersonaGate() {
+  const gate = document.getElementById('persona-gate');
+  if (!gate) return;
+  gate.classList.add('is-hidden');
+  document.body.style.overflow = '';
+}
+
+function renderPersonaGate(mountId) {
   const mount = document.getElementById(mountId);
   if (!mount) return;
-
-  const total = QUIZ_QUESTIONS.length;
   const answers = [];
 
-  const stepsHtml = QUIZ_QUESTIONS.map((step, i) => `
-    <div class="quiz-step ${i === 0 ? 'is-active' : ''}" data-step="${i}">
-      <div class="eyebrow">Question ${i + 1} of ${total}</div>
+  mount.innerHTML = `
+    <div class="quiz-shell">
+      <button class="persona-gate__skip" id="persona-skip" type="button">Skip — take me to the site</button>
+      <div class="quiz-progress"><div class="quiz-progress__bar" id="persona-progress-bar"></div></div>
+      <div id="persona-steps"></div>
+    </div>
+  `;
+
+  const stepsHost = mount.querySelector('#persona-steps');
+  const progressBar = mount.querySelector('#persona-progress-bar');
+
+  mount.querySelector('#persona-skip').addEventListener('click', () => {
+    sessionStorage.setItem('namani-persona-gate-seen', '1');
+    dismissPersonaGate();
+  });
+
+  function renderGateStep() {
+    progressBar.style.width = '0%';
+    stepsHost.innerHTML = `
+      <div class="eyebrow">Two clicks, then we'll get out of your way</div>
+      <h3>What's this trip for?</h3>
+      <p>Answer a few quick questions and we'll tailor what you see — or skip straight to browsing.</p>
+      <div class="persona-gate__type-options">
+        <button class="quiz-option" id="persona-leisure" type="button">
+          <span class="icon">${iconSpan('backpack')}</span>
+          <strong>Personal trip</strong>
+          <span>Leisure, adventure, a well-earned break.</span>
+        </button>
+        <button class="quiz-option" id="persona-corporate" type="button">
+          <span class="icon">${iconSpan('suitcase')}</span>
+          <strong>Business trip</strong>
+          <span>Corporate travel, handled efficiently.</span>
+        </button>
+      </div>
+    `;
+    stepsHost.querySelector('#persona-leisure').addEventListener('click', () => renderQuestionStep(0));
+    stepsHost.querySelector('#persona-corporate').addEventListener('click', finishCorporate);
+  }
+
+  function renderQuestionStep(index) {
+    if (index >= PERSONA_QUESTIONS.length) { finishLeisure(); return; }
+    progressBar.style.width = `${(index / PERSONA_QUESTIONS.length) * 100}%`;
+    const step = PERSONA_QUESTIONS[index];
+    stepsHost.innerHTML = `
+      <div class="eyebrow">Question ${index + 1} of ${PERSONA_QUESTIONS.length}</div>
       <h3>${step.q}</h3>
       <div class="quiz-options">
-        ${step.options.map((opt, oi) => `
-          <button class="quiz-option" data-vibe="${opt.vibe}" data-dest="${opt.destId}" type="button">
-            <span class="icon">${iconSpan(opt.vibe)}</span>
+        ${step.options.map((opt) => `
+          <button class="quiz-option" data-persona="${opt.persona}" data-dest="${opt.destId}" type="button">
+            <span class="icon">${iconSpan(PERSONAS[opt.persona].vibe)}</span>
             <strong>${opt.label}</strong>
           </button>
         `).join('')}
       </div>
       <div class="quiz-nav">
-        <button class="btn btn-ghost" data-back type="button" ${i === 0 ? 'style="visibility:hidden"' : ''}>← Back</button>
+        <button class="btn btn-ghost" id="persona-back" type="button" ${index === 0 ? 'style="visibility:hidden"' : ''}>← Back</button>
         <span></span>
       </div>
-    </div>
-  `).join('');
-
-  mount.innerHTML = `
-    <div class="quiz-progress"><div class="quiz-progress__bar" id="quiz-progress-bar"></div></div>
-    <div id="quiz-steps">${stepsHtml}</div>
-    <div class="quiz-step" data-step="result" id="quiz-result-step"></div>
-  `;
-
-  const progressBar = mount.querySelector('#quiz-progress-bar');
-  let current = 0;
-
-  function updateProgress() {
-    progressBar.style.width = `${(current / total) * 100}%`;
+    `;
+    stepsHost.querySelectorAll('.quiz-option').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        answers[index] = { persona: btn.dataset.persona, destId: btn.dataset.dest };
+        setTimeout(() => renderQuestionStep(index + 1), 220);
+      });
+    });
+    stepsHost.querySelector('#persona-back').addEventListener('click', () => {
+      if (index === 0) renderGateStep(); else renderQuestionStep(index - 1);
+    });
   }
 
-  function goToStep(i) {
-    mount.querySelectorAll('.quiz-step').forEach((s) => s.classList.remove('is-active'));
-    if (i >= total) {
-      showResult();
-      mount.querySelector('#quiz-result-step').classList.add('is-active');
-      progressBar.style.width = '100%';
-    } else {
-      mount.querySelector(`.quiz-step[data-step="${i}"]`).classList.add('is-active');
-      updateProgress();
-    }
-    current = i;
-  }
-
-  mount.querySelectorAll('.quiz-option').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const stepEl = btn.closest('.quiz-step');
-      const stepIndex = Number(stepEl.dataset.step);
-      answers[stepIndex] = { vibe: btn.dataset.vibe, destId: btn.dataset.dest };
-      stepEl.querySelectorAll('.quiz-option').forEach((o) => o.classList.remove('is-selected'));
-      btn.classList.add('is-selected');
-      setTimeout(() => goToStep(stepIndex + 1), 260);
-    });
-  });
-
-  mount.querySelectorAll('[data-back]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const stepEl = btn.closest('.quiz-step');
-      const stepIndex = Number(stepEl.dataset.step);
-      goToStep(Math.max(0, stepIndex - 1));
-    });
-  });
-
-  function tally() {
-    const vibeScore = { beach: 0, city: 0, adventure: 0, culture: 0 };
-    const destScore = {};
-    answers.forEach((a) => {
-      if (!a) return;
-      vibeScore[a.vibe] += 1;
-      destScore[a.destId] = (destScore[a.destId] || 0) + 1;
-    });
-    const winningVibe = Object.entries(vibeScore).sort((a, b) => b[1] - a[1])[0][0];
-    const candidateDests = Object.entries(destScore)
-      .filter(([id]) => getDestination(id)?.vibe === winningVibe)
-      .sort((a, b) => b[1] - a[1]);
-    const destinationId = candidateDests.length ? candidateDests[0][0] : DESTINATIONS.find((d) => d.vibe === winningVibe).id;
-    return { vibe: winningVibe, destinationId };
-  }
-
-  function showResult() {
-    const result = tally();
+  function finishLeisure() {
+    progressBar.style.width = '100%';
+    const result = tallyLeisurePersona(answers);
     const dest = getDestination(result.destinationId);
-    const vibeInfo = VIBES[result.vibe];
-    sessionStorage.setItem('namani-vibe-result', JSON.stringify(result));
+    const info = PERSONAS[result.persona];
+    localStorage.setItem('namani-persona', JSON.stringify(result));
+    sessionStorage.setItem('namani-quiz-result', JSON.stringify(result));
+    sessionStorage.setItem('namani-persona-gate-seen', '1');
 
-    const params = new URLSearchParams({ vibe: result.vibe, destination: dest.id, fromQuiz: '1' });
-
-    mount.querySelector('#quiz-result-step').innerHTML = `
+    const params = new URLSearchParams({ to: dest.name });
+    stepsHost.innerHTML = `
       <div class="text-center">
-        <span class="badge ${vibeInfo.badge}" style="margin-bottom:18px;">${iconSpan(result.vibe)} ${vibeInfo.label}</span>
-        <h2>Your travel vibe is ${vibeInfo.label}.</h2>
-        <p style="max-width:420px;margin:0 auto 28px;">${vibeInfo.desc}</p>
+        <span class="badge ${info.badge}" style="margin-bottom:18px;">${iconSpan(info.vibe)} ${info.label}</span>
+        <h2>You're a ${info.label} traveler.</h2>
+        <p style="max-width:420px;margin:0 auto 28px;">${info.tagline}</p>
       </div>
-      <div class="card" style="max-width:340px;margin:0 auto 28px;">
+      <div class="card" style="max-width:320px;margin:0 auto 28px;">
         <div class="card__media">
-          <span class="badge ${vibeInfo.badge} card__badge">${dest.country}</span>
+          <span class="badge ${info.badge} card__badge">${dest.country}</span>
           <img src="${dest.img}" alt="${dest.name}" loading="lazy" />
         </div>
         <div class="card__body">
@@ -173,16 +171,82 @@ function renderQuiz(mountId) {
         </div>
       </div>
       <div class="stack-lg" style="align-items:center;">
-        <a href="quote.html?${params.toString()}" class="btn btn-primary btn-block" style="max-width:340px;">Get My Personalized Quote</a>
-        <button class="btn btn-ghost" id="quiz-retake" type="button">Retake the quiz</button>
+        <a href="search.html?${params.toString()}" class="btn btn-primary btn-block" style="max-width:320px;">Plan This Trip</a>
+        <button class="btn btn-ghost" id="persona-continue" type="button">Just show me the homepage</button>
       </div>
     `;
-    mount.querySelector('#quiz-retake').addEventListener('click', () => {
-      answers.length = 0;
-      mount.querySelectorAll('.quiz-option').forEach((o) => o.classList.remove('is-selected'));
-      goToStep(0);
-    });
+    stepsHost.querySelector('#persona-continue').addEventListener('click', dismissPersonaGate);
   }
 
-  updateProgress();
+  function finishCorporate() {
+    progressBar.style.width = '100%';
+    const info = PERSONAS.corporate;
+    localStorage.setItem('namani-persona', JSON.stringify({ persona: 'corporate' }));
+    sessionStorage.setItem('namani-persona-gate-seen', '1');
+    stepsHost.innerHTML = `
+      <div class="text-center">
+        <span class="badge ${info.badge}" style="margin-bottom:18px;">${iconSpan('suitcase')} ${info.label}</span>
+        <h2>Corporate travel, sorted.</h2>
+        <p style="max-width:420px;margin:0 auto 28px;">${info.tagline} We'll pre-fill Business class and flag your request for priority handling.</p>
+      </div>
+      <div class="stack-lg" style="align-items:center;">
+        <a href="search.html?corporate=1" class="btn btn-primary btn-block" style="max-width:320px;">Start a Corporate Request</a>
+        <button class="btn btn-ghost" id="persona-continue" type="button">Just show me the homepage</button>
+      </div>
+    `;
+    stepsHost.querySelector('#persona-continue').addEventListener('click', dismissPersonaGate);
+  }
+
+  renderGateStep();
+}
+
+function reopenPersonaGate() {
+  const gate = document.getElementById('persona-gate');
+  if (!gate) return;
+  document.body.style.overflow = 'hidden';
+  gate.classList.remove('is-hidden');
+  renderPersonaGate('persona-gate-mount');
+}
+
+function initPersonaGate() {
+  const gate = document.getElementById('persona-gate');
+  if (!gate) return;
+  if (sessionStorage.getItem('namani-persona-gate-seen')) return;
+  document.body.style.overflow = 'hidden';
+  gate.classList.remove('is-hidden');
+  renderPersonaGate('persona-gate-mount');
+}
+
+// Personalizes the homepage based on a previously-chosen traveler type
+// (localStorage — persists across visits until the quiz is retaken).
+function applyPersonaPersonalization() {
+  const banner = document.getElementById('persona-banner');
+  if (!banner) return;
+  let persona;
+  try { persona = JSON.parse(localStorage.getItem('namani-persona') || 'null'); } catch (e) { persona = null; }
+  if (!persona) return;
+
+  if (persona.persona === 'corporate') {
+    const info = PERSONAS.corporate;
+    banner.innerHTML = `
+      <div>
+        <div class="eyebrow" style="margin-bottom:6px;">Welcome back, corporate traveler</div>
+        <p style="margin:0;max-width:480px;">${info.tagline}</p>
+      </div>
+      <a href="search.html?corporate=1" class="btn btn-primary btn-sm">Start a Corporate Request</a>
+    `;
+  } else {
+    const info = PERSONAS[persona.persona];
+    if (!info) return;
+    banner.innerHTML = `
+      <div>
+        <div class="eyebrow" style="margin-bottom:6px;">Picked for ${info.label} travelers</div>
+        <p style="margin:0;max-width:480px;">${info.tagline}</p>
+      </div>
+      <a href="index.html#retake-quiz" class="btn btn-outline btn-sm">Retake the quiz</a>
+    `;
+    const pill = document.querySelector(`#home-filter-row .filter-pill[data-vibe="${info.vibe}"]`);
+    if (pill) pill.click();
+  }
+  banner.hidden = false;
 }

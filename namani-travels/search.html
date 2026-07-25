@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Search a Trip — Namani Travels</title>
+<title>Plan a Trip — Namani Travels</title>
 <meta name="description" content="Search your route, dates, and cabin class — we'll follow up with a real, human-built quote." />
 <link rel="stylesheet" href="assets/css/style.css" />
 </head>
@@ -14,22 +14,45 @@
   <main>
     <section class="section" style="padding-top:calc(var(--nav-h) + 56px);">
       <div class="container">
-        <div class="text-center" style="max-width:640px;margin:0 auto 32px;">
-          <span class="eyebrow" style="justify-content:center;">Start here</span>
-          <h1>Where are we flying?</h1>
-          <p>Give us the route and dates — we'll take it from there. No account needed, no results page to dig through, just a real quote in your inbox and on WhatsApp.</p>
+
+        <div id="search-form-panel">
+          <div class="text-center" style="max-width:640px;margin:0 auto 32px;">
+            <span class="eyebrow" style="justify-content:center;">Start here</span>
+            <h1>Where are we flying?</h1>
+            <p>Give us the route and dates — we'll take it from there. No account needed, no results page to dig through, just a real quote in your inbox and on WhatsApp.</p>
+          </div>
+
+          <div id="page-search-widget" style="max-width:960px;margin:0 auto;"></div>
+
+          <p class="text-center" style="margin-top:24px;font-size:.9rem;">
+            Travelling with a group, a minor, or need accessibility support? Open <strong>Advanced search</strong> above and flag it —
+            or just <a id="search-whatsapp" href="#" style="color:var(--accent);font-weight:600;">message us on WhatsApp</a>.
+          </p>
         </div>
 
-        <div id="page-search-widget" style="max-width:960px;margin:0 auto;"></div>
+        <div id="quote-panel" hidden>
+          <div class="text-center" style="max-width:600px;margin:0 auto 48px;">
+            <span class="eyebrow" style="justify-content:center;">Almost there</span>
+            <h1>Let's get your quote sorted.</h1>
+            <p>No flight results here — just confirm the details below and we'll come back to you directly with real options and real prices.</p>
+          </div>
 
-        <p class="text-center" style="margin-top:24px;font-size:.9rem;">
-          Rather chat it through? <a href="quiz.html" style="color:var(--accent);font-weight:600;">Take the Travel Vibe quiz</a> or
-          <a id="search-whatsapp" href="#" style="color:var(--accent);font-weight:600;">message us on WhatsApp</a>.
-        </p>
+          <div class="two-col" style="align-items:start;">
+            <div>
+              <div id="quote-quiz-context"></div>
+              <div id="quote-summary"></div>
+            </div>
+            <div id="quote-form-panel"></div>
+          </div>
+
+          <p class="text-center" style="margin-top:24px;">
+            <button class="btn btn-ghost" id="quote-back-to-search" type="button">← Edit search</button>
+          </p>
+        </div>
       </div>
     </section>
 
-    <section class="section--tight section--alt">
+    <section class="section--tight section--alt" id="search-trust-row">
       <div class="container grid grid-3 reveal-stagger">
         <div class="text-center">
           <div class="trust-icon" data-icon="plane"></div>
@@ -59,10 +82,34 @@
   <script src="assets/js/airports.js"></script>
   <script src="assets/js/common.js"></script>
   <script src="assets/js/search-widget.js"></script>
+  <script src="assets/js/quote.js"></script>
   <script>
+    function showQuotePanel(queryString) {
+      document.getElementById('search-form-panel').hidden = true;
+      document.getElementById('search-trust-row').hidden = true;
+      document.getElementById('quote-panel').hidden = false;
+      initQuotePanel(queryString);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
-      renderSearchWidget('page-search-widget', { expandAdvancedByDefault: true });
+      renderSearchWidget('page-search-widget', {
+        expandAdvancedByDefault: true,
+        onSubmit: (params) => showQuotePanel(params.toString()),
+      });
       document.getElementById('search-whatsapp').href = buildWhatsAppLink();
+
+      document.getElementById('quote-back-to-search').addEventListener('click', () => {
+        document.getElementById('quote-panel').hidden = true;
+        document.getElementById('search-form-panel').hidden = false;
+        document.getElementById('search-trust-row').hidden = false;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('fromWidgetSubmit') === '1') {
+        showQuotePanel(window.location.search.slice(1));
+      }
     });
   </script>
 </body>
