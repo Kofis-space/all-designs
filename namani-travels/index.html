@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Namani Travels — Travel That Feels Like Peace</title>
+<meta name="description" content="Namani Travels plans adventurous, unhurried trips — search flights, get a real human quote, and let us handle the rest." />
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body data-page="home">
+
+  <!-- Passport opening intro -->
+  <div class="passport-scene" id="passport-intro">
+    <div class="passport">
+      <div class="passport__inside">
+        <h3>Namani Travels</h3>
+        <p>Namani means peace. Let's go find some, somewhere new.</p>
+        <div class="passport__stamp">FLY<br/>NAMANI</div>
+      </div>
+      <div class="passport__cover">
+        <div class="emblem">✈</div>
+        <h2>Namani</h2>
+        <span>Travel Document</span>
+      </div>
+    </div>
+    <button class="passport__skip" id="passport-skip">Skip intro</button>
+  </div>
+
+  <div id="site-header"></div>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero__bg hero__bg--slideshow">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Panoramic_view_of_Oia%2C_Santorini_island_%28Thira%29%2C_Greece.jpg/1920px-Panoramic_view_of_Oia%2C_Santorini_island_%28Thira%29%2C_Greece.jpg" alt="Santorini, Greece" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Bali%2C_rice_terraces_1.jpg/1920px-Bali%2C_rice_terraces_1.jpg" alt="Bali, Indonesia" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Dubai_Skyline_mit_Burj_Khalifa_%28cropped%29.jpg/1920px-Dubai_Skyline_mit_Burj_Khalifa_%28cropped%29.jpg" alt="Dubai, UAE" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Maasai_Mara_National_Reserve_Kenya.jpg/1920px-Maasai_Mara_National_Reserve_Kenya.jpg" alt="Maasai Mara, Kenya" />
+      </div>
+      <div class="plane-layer">
+        <svg class="plane-trail" viewBox="0 0 1000 120" preserveAspectRatio="none"><path d="M -50 60 Q 300 10, 550 55 T 1050 40" /></svg>
+        <span class="plane">✈</span>
+        <span class="plane plane--2">✈</span>
+      </div>
+
+      <div class="container">
+        <div class="hero__content reveal is-visible">
+          <span class="eyebrow">Namani means peace</span>
+          <h1>Travel that feels&nbsp;like&nbsp;peace, not a checklist.</h1>
+          <p>We plan adventurous, unhurried trips — you tell us the vibe, we handle flights, timing, and the thousand tiny details. Real humans, real quotes, no bots.</p>
+
+          <div class="hero__stats">
+            <div><strong>25+</strong><span>Destinations curated</span></div>
+            <div><strong>1,200+</strong><span>Trips planned</span></div>
+            <div><strong>&lt;24h</strong><span>Average response time</span></div>
+          </div>
+        </div>
+
+        <div id="home-search-widget"></div>
+      </div>
+    </section>
+
+    <!-- TRUST SIGNALS -->
+    <section class="section--tight">
+      <div class="container">
+        <div class="grid grid-4 reveal-stagger" id="trust-strip">
+          <div class="text-center">
+            <div style="font-size:1.8rem;">🧑‍💻</div>
+            <h3 style="font-size:1rem;margin-top:10px;">Real humans, not bots</h3>
+            <p style="font-size:.88rem;">Every request gets a real agent, not an auto-reply.</p>
+          </div>
+          <div class="text-center">
+            <div style="font-size:1.8rem;">💬</div>
+            <h3 style="font-size:1rem;margin-top:10px;">WhatsApp follow-up</h3>
+            <p style="font-size:.88rem;">Quotes and updates wherever you already are.</p>
+          </div>
+          <div class="text-center">
+            <div style="font-size:1.8rem;">🌍</div>
+            <h3 style="font-size:1rem;margin-top:10px;">Any route, any airline</h3>
+            <p style="font-size:.88rem;">Global network — not tied to one carrier.</p>
+          </div>
+          <div class="text-center">
+            <div style="font-size:1.8rem;">🔒</div>
+            <h3 style="font-size:1rem;margin-top:10px;">Your details, protected</h3>
+            <p style="font-size:.88rem;">We only ever use your info to plan your trip.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DESTINATIONS -->
+    <section class="section section--alt">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Where the vibe takes you</span>
+            <h2>A few places worth the flight.</h2>
+          </div>
+          <a href="destinations.html" class="btn btn-outline">See all destinations</a>
+        </div>
+        <div class="filter-row reveal" id="home-filter-row">
+          <button class="filter-pill is-active" data-vibe="all">All</button>
+          <button class="filter-pill" data-vibe="beach">🏖️ Beach</button>
+          <button class="filter-pill" data-vibe="city">🏙️ City Escape</button>
+          <button class="filter-pill" data-vibe="adventure">🧭 Adventure</button>
+          <button class="filter-pill" data-vibe="culture">🏛️ Culture</button>
+        </div>
+        <div class="carousel-controls">
+          <button class="carousel-btn" id="carousel-prev" aria-label="Scroll left">←</button>
+          <button class="carousel-btn" id="carousel-next" aria-label="Scroll right">→</button>
+        </div>
+        <div class="carousel" id="home-carousel"></div>
+      </div>
+    </section>
+
+    <!-- QUIZ CTA -->
+    <section class="section">
+      <div class="container">
+        <div class="two-col reveal">
+          <div>
+            <span class="eyebrow">Not sure yet?</span>
+            <h2>Take the 60-second Travel Vibe quiz.</h2>
+            <p>Six quick questions. We'll match you to a vibe — beach, city escape, adventure, or culture — and a destination to go with it, then take it straight into your quote.</p>
+            <a href="quiz.html" class="btn btn-primary">Find My Travel Vibe</a>
+          </div>
+          <div class="grid grid-2" style="gap:16px;">
+            <div class="card" style="aspect-ratio:1;">
+              <div class="card__media" style="aspect-ratio:1;">
+                <span class="badge badge--beach card__badge">🏖️ Beach</span>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Anse_Lazio_Beach%2C_Seychelles_%2838720921075%29.jpg/960px-Anse_Lazio_Beach%2C_Seychelles_%2838720921075%29.jpg" alt="Seychelles" loading="lazy" />
+              </div>
+            </div>
+            <div class="card" style="aspect-ratio:1;margin-top:28px;">
+              <div class="card__media" style="aspect-ratio:1;">
+                <span class="badge badge--adventure card__badge">🧭 Adventure</span>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Wildebeest_Migration_in_Serengeti_National_Park%2C_Tanzania.jpg/960px-Wildebeest_Migration_in_Serengeti_National_Park%2C_Tanzania.jpg" alt="Tanzania" loading="lazy" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="section section--alt">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Real trips, real people</span>
+            <h2>Travellers who found their vibe.</h2>
+          </div>
+          <a href="stories.html" class="btn btn-outline">Read more stories</a>
+        </div>
+        <div class="grid grid-3 reveal-stagger">
+          <div class="card">
+            <div class="card__body">
+              <span class="badge badge--beach" style="margin-bottom:14px;">🏖️ Bali</span>
+              <p style="font-size:1rem;color:var(--text);">"Sent them one voice note about wanting to 'disappear for a week' and they came back with the exact right trip. Didn't lift a finger after that."</p>
+              <div class="card__meta"><span>— Amara O.</span><span>★★★★★</span></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card__body">
+              <span class="badge badge--city" style="margin-bottom:14px;">🏙️ Dubai</span>
+              <p style="font-size:1rem;color:var(--text);">"Booked business class for a work trip in under an hour of WhatsApp back-and-forth. No hold music, no call centre."</p>
+              <div class="card__meta"><span>— Tobi A.</span><span>★★★★★</span></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card__body">
+              <span class="badge badge--adventure" style="margin-bottom:14px;">🧭 Kenya</span>
+              <p style="font-size:1rem;color:var(--text);">"Took the vibe quiz as a joke during a boring meeting. Three weeks later I was in the Mara. Genuinely life-changing trip."</p>
+              <div class="card__meta"><span>— Chidi N.</span><span>★★★★★</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="section text-center">
+      <div class="container reveal" style="max-width:600px;">
+        <h2>Ready when you are.</h2>
+        <p>Search a route, take the quiz, or just say hi — however you'd rather start.</p>
+        <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+          <a href="search.html" class="btn btn-primary">Plan My Trip</a>
+          <a href="#" id="cta-whatsapp" class="btn btn-outline">Message Us on WhatsApp</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+  <div id="whatsapp-fab-slot"></div>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/destinations.js"></script>
+  <script src="assets/js/airports.js"></script>
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/search-widget.js"></script>
+  <script src="assets/js/animations.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      renderSearchWidget('home-search-widget');
+
+      const carousel = document.getElementById('home-carousel');
+      function paintCarousel(vibe) {
+        carousel.innerHTML = destinationsByVibe(vibe).map(destinationCardHtml).join('');
+      }
+      paintCarousel('all');
+
+      document.querySelectorAll('#home-filter-row .filter-pill').forEach((pill) => {
+        pill.addEventListener('click', () => {
+          document.querySelectorAll('#home-filter-row .filter-pill').forEach((p) => p.classList.remove('is-active'));
+          pill.classList.add('is-active');
+          paintCarousel(pill.dataset.vibe);
+        });
+      });
+
+      document.getElementById('carousel-prev').addEventListener('click', () => carousel.scrollBy({ left: -300, behavior: 'smooth' }));
+      document.getElementById('carousel-next').addEventListener('click', () => carousel.scrollBy({ left: 300, behavior: 'smooth' }));
+
+      document.getElementById('cta-whatsapp').href = buildWhatsAppLink();
+    });
+  </script>
+</body>
+</html>

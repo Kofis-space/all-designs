@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact Us — Namani Travels</title>
+<meta name="description" content="Reach Namani Travels on WhatsApp or Instagram — real replies, no long forms." />
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body data-page="contact">
+
+  <div id="site-header"></div>
+
+  <main>
+    <section class="section" style="padding-top:calc(var(--nav-h) + 56px);">
+      <div class="container">
+        <div class="text-center" style="max-width:560px;margin:0 auto 40px;">
+          <span class="eyebrow" style="justify-content:center;">Say hello</span>
+          <h1>Let's talk — wherever you already are.</h1>
+          <p>No long contact form here. Just the fastest way to reach a real person.</p>
+        </div>
+
+        <div class="grid grid-2 reveal-stagger" style="max-width:760px;margin:0 auto;">
+          <a href="#" id="contact-whatsapp" target="_blank" rel="noopener" class="card" style="padding:32px;text-align:center;">
+            <div style="font-size:2.2rem;">💬</div>
+            <h3 style="margin-top:14px;">WhatsApp</h3>
+            <p>Fastest way to reach us — usually a reply within the hour.</p>
+            <span class="btn btn-primary btn-sm">Message Us</span>
+          </a>
+          <a href="https://instagram.com/namanitravels" target="_blank" rel="noopener" class="card" style="padding:32px;text-align:center;">
+            <div style="font-size:2.2rem;">📷</div>
+            <h3 style="margin-top:14px;">Instagram</h3>
+            <p>Destinations, client trips, and behind-the-scenes @namanitravels.</p>
+            <span class="btn btn-outline btn-sm">Follow Along</span>
+          </a>
+        </div>
+
+        <p class="text-center" style="margin-top:28px;font-size:.9rem;">
+          Prefer email? Reach us at <a href="mailto:hello@namanitravels.com" style="color:var(--accent);font-weight:600;">hello@namanitravels.com</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="section--tight section--alt">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Follow along</span>
+            <h2>@namanitravels on Instagram</h2>
+          </div>
+          <a href="https://instagram.com/namanitravels" target="_blank" rel="noopener" class="btn btn-outline">View Profile</a>
+        </div>
+        <div class="instagram-embed reveal">
+          <a href="https://instagram.com/namanitravels" target="_blank" rel="noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Bali%2C_rice_terraces_1.jpg/640px-Bali%2C_rice_terraces_1.jpg" alt="Bali" loading="lazy" /></a>
+          <a href="https://instagram.com/namanitravels" target="_blank" rel="noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Dubai_Skyline_mit_Burj_Khalifa_%28cropped%29.jpg/640px-Dubai_Skyline_mit_Burj_Khalifa_%28cropped%29.jpg" alt="Dubai" loading="lazy" /></a>
+          <a href="https://instagram.com/namanitravels" target="_blank" rel="noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Maasai_Mara_National_Reserve_Kenya.jpg/640px-Maasai_Mara_National_Reserve_Kenya.jpg" alt="Kenya" loading="lazy" /></a>
+          <a href="https://instagram.com/namanitravels" target="_blank" rel="noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Panoramic_view_of_Oia%2C_Santorini_island_%28Thira%29%2C_Greece.jpg/640px-Panoramic_view_of_Oia%2C_Santorini_island_%28Thira%29%2C_Greece.jpg" alt="Santorini" loading="lazy" /></a>
+        </div>
+        <p class="credit-note text-center" style="margin-top:14px;">Preview grid shown with placeholder imagery — connect a live Instagram feed widget in under 5 minutes, see SETUP.md.</p>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+  <div id="whatsapp-fab-slot"></div>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/destinations.js"></script>
+  <script src="assets/js/common.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('contact-whatsapp').href = buildWhatsAppLink();
+    });
+  </script>
+</body>
+</html>

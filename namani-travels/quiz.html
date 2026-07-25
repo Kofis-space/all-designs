@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Find Your Travel Vibe — Namani Travels</title>
+<meta name="description" content="Answer six quick questions and we'll match you to your travel vibe — beach, city escape, adventure, or culture — plus a destination to match." />
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body data-page="quiz">
+
+  <div id="site-header"></div>
+
+  <main>
+    <section class="section--tight" style="padding-top:calc(var(--nav-h) + 56px); padding-bottom:0;">
+      <div class="container text-center" style="max-width:640px;margin-left:auto;margin-right:auto;">
+        <span class="eyebrow" style="justify-content:center;">Find Your Travel Vibe</span>
+        <h1 style="font-size:clamp(2rem, 4vw + 1rem, 3rem);">Six questions. One perfect-fit trip.</h1>
+        <p style="margin:0 auto;">No boring forms — just vibes. We'll match you to a destination and take your matched trip straight into a quote.</p>
+      </div>
+    </section>
+
+    <section class="section--tight">
+      <div class="container">
+        <div class="quiz-shell reveal" id="quiz-mount"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+  <div id="whatsapp-fab-slot"></div>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/destinations.js"></script>
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/quiz.js"></script>
+  <script src="assets/js/animations.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => renderQuiz('quiz-mount'));
+  </script>
+</body>
+</html>

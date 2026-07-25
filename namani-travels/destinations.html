@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Destinations — Namani Travels</title>
+<meta name="description" content="Beach, city escape, adventure, and culture — explore curated destinations across Asia, the Middle East, Africa, and Europe." />
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body data-page="destinations">
+
+  <div id="site-header"></div>
+
+  <main>
+    <section class="section" style="padding-top:calc(var(--nav-h) + 56px);">
+      <div class="container">
+        <div class="text-center" style="max-width:640px;margin:0 auto 32px;">
+          <span class="eyebrow" style="justify-content:center;">Inspiration</span>
+          <h1>Where the vibe takes you.</h1>
+          <p>Every destination we curate is tagged by mood, not just geography. Pick a vibe, or browse everything.</p>
+        </div>
+
+        <div class="filter-row text-center" id="dest-filter-row" style="justify-content:center;">
+          <button class="filter-pill is-active" data-vibe="all">All destinations</button>
+          <button class="filter-pill" data-vibe="beach">🏖️ Beach</button>
+          <button class="filter-pill" data-vibe="city">🏙️ City Escape</button>
+          <button class="filter-pill" data-vibe="adventure">🧭 Adventure</button>
+          <button class="filter-pill" data-vibe="culture">🏛️ Culture</button>
+        </div>
+
+        <div class="grid grid-3" id="dest-grid"></div>
+      </div>
+    </section>
+
+    <section class="section section--alt text-center">
+      <div class="container reveal" style="max-width:560px;">
+        <h2>Don't see your dream trip?</h2>
+        <p>We plan far beyond this list — if you can dream it, we can probably fly you there.</p>
+        <a href="search.html" class="btn btn-primary">Search Any Route</a>
+      </div>
+    </section>
+
+    <section class="section--tight" id="photo-credits">
+      <div class="container">
+        <h3 style="font-size:1.1rem;">Photo credits</h3>
+        <p style="max-width:640px;">All destination photography on this site is sourced from Wikimedia Commons under Creative Commons licenses. Thank you to these photographers:</p>
+        <div id="credits-list" style="font-size:.82rem;color:var(--text-muted);display:grid;gap:6px;"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+  <div id="whatsapp-fab-slot"></div>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/destinations.js"></script>
+  <script src="assets/js/common.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const grid = document.getElementById('dest-grid');
+      function paint(vibe) {
+        grid.innerHTML = destinationsByVibe(vibe).map(destinationCardHtml).join('');
+      }
+      paint('all');
+
+      document.querySelectorAll('#dest-filter-row .filter-pill').forEach((pill) => {
+        pill.addEventListener('click', () => {
+          document.querySelectorAll('#dest-filter-row .filter-pill').forEach((p) => p.classList.remove('is-active'));
+          pill.classList.add('is-active');
+          paint(pill.dataset.vibe);
+        });
+      });
+
+      document.getElementById('credits-list').innerHTML = DESTINATIONS.map(
+        (d) => `<div>${d.name}: Photo by <a href="${d.creditUrl}" target="_blank" rel="noopener" style="color:var(--text-muted);text-decoration:underline;">${d.credit}</a>, ${d.license}, via Wikimedia Commons.</div>`
+      ).join('');
+    });
+  </script>
+</body>
+</html>

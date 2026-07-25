@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Search a Trip — Namani Travels</title>
+<meta name="description" content="Search your route, dates, and cabin class — we'll follow up with a real, human-built quote." />
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body data-page="search">
+
+  <div id="site-header"></div>
+
+  <main>
+    <section class="section" style="padding-top:calc(var(--nav-h) + 56px);">
+      <div class="container">
+        <div class="text-center" style="max-width:640px;margin:0 auto 32px;">
+          <span class="eyebrow" style="justify-content:center;">Start here</span>
+          <h1>Where are we flying?</h1>
+          <p>Give us the route and dates — we'll take it from there. No account needed, no results page to dig through, just a real quote in your inbox and on WhatsApp.</p>
+        </div>
+
+        <div id="page-search-widget" style="max-width:960px;margin:0 auto;"></div>
+
+        <p class="text-center" style="margin-top:24px;font-size:.9rem;">
+          Rather chat it through? <a href="quiz.html" style="color:var(--accent);font-weight:600;">Take the Travel Vibe quiz</a> or
+          <a id="search-whatsapp" href="#" style="color:var(--accent);font-weight:600;">message us on WhatsApp</a>.
+        </p>
+      </div>
+    </section>
+
+    <section class="section--tight section--alt">
+      <div class="container grid grid-3 reveal-stagger">
+        <div class="text-center">
+          <div style="font-size:1.6rem;">✈️</div>
+          <h3 style="font-size:1rem;margin-top:8px;">Any route</h3>
+          <p style="font-size:.86rem;">From regional hops to long-haul, one-way or round.</p>
+        </div>
+        <div class="text-center">
+          <div style="font-size:1.6rem;">🧳</div>
+          <h3 style="font-size:1rem;margin-top:8px;">Every class</h3>
+          <p style="font-size:.86rem;">Economy through First — tell us, we'll find it.</p>
+        </div>
+        <div class="text-center">
+          <div style="font-size:1.6rem;">⏱️</div>
+          <h3 style="font-size:1rem;margin-top:8px;">Fast follow-up</h3>
+          <p style="font-size:.86rem;">Expect a reply within 24 hours, usually much sooner.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+  <div id="whatsapp-fab-slot"></div>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/destinations.js"></script>
+  <script src="assets/js/airports.js"></script>
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/search-widget.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      renderSearchWidget('page-search-widget', { expandAdvancedByDefault: true });
+      document.getElementById('search-whatsapp').href = buildWhatsAppLink();
+    });
+  </script>
+</body>
+</html>
