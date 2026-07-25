@@ -134,10 +134,10 @@ const DESTINATIONS = [
 ];
 
 const VIBES = {
-  beach: { label: 'Beach', badge: 'badge--beach', icon: '🏖️', desc: 'Slow mornings, warm water, zero itinerary.' },
-  city: { label: 'City Escape', badge: 'badge--city', icon: '🏙️', desc: 'Skylines, food scenes, a city that never sits still.' },
-  adventure: { label: 'Adventure', badge: 'badge--adventure', icon: '🧭', desc: 'Wide open spaces and stories worth retelling.' },
-  culture: { label: 'Culture', badge: 'badge--culture', icon: '🏛️', desc: 'History, art, and traditions worth slowing down for.' },
+  beach: { label: 'Beach', badge: 'badge--beach', desc: 'Slow mornings, warm water, zero itinerary.' },
+  city: { label: 'City Escape', badge: 'badge--city', desc: 'Skylines, food scenes, a city that never sits still.' },
+  adventure: { label: 'Adventure', badge: 'badge--adventure', desc: 'Wide open spaces and stories worth retelling.' },
+  culture: { label: 'Culture', badge: 'badge--culture', desc: 'History, art, and traditions worth slowing down for.' },
 };
 
 function destinationsByVibe(vibe) {
@@ -154,7 +154,7 @@ function destinationCardHtml(d) {
   return `
     <div class="card">
       <div class="card__media">
-        <span class="badge ${v.badge} card__badge">${v.icon} ${v.label}</span>
+        <span class="badge ${v.badge} card__badge">${iconSpan(d.vibe)} ${v.label}</span>
         <img src="${d.img}" alt="${d.name}, ${d.country}" loading="lazy" />
       </div>
       <div class="card__body">

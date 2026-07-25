@@ -92,6 +92,13 @@ body {
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible,
+.btn:focus-visible, .card:focus-visible, [tabindex]:focus-visible {
+  outline: 2.5px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
 h1, h2, h3, h4 {
   font-family: var(--font-display);
   line-height: 1.08;
@@ -230,6 +237,7 @@ p { line-height: 1.65; color: var(--text-muted); margin: 0 0 1em; }
   padding: 6px 12px; border-radius: var(--radius-pill); color: #fff;
 }
 .badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .9;}
+.badge:has(.icon-svg)::before { display: none; }
 .badge--beach { background: var(--vibe-beach); }
 .badge--city { background: var(--vibe-city); }
 .badge--adventure { background: var(--vibe-adventure); }
@@ -290,12 +298,12 @@ p { line-height: 1.65; color: var(--text-muted); margin: 0 0 1em; }
   position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
 }
 .plane {
-  position: absolute; top: 18%; left: -8%;
-  font-size: 2.2rem; filter: drop-shadow(0 6px 10px rgba(0,0,0,0.35));
+  position: absolute; top: 18%; left: -8%; width: 2.4rem; height: 2.4rem; color: #fff;
+  filter: drop-shadow(0 6px 10px rgba(0,0,0,0.35));
   animation: fly-across 16s linear infinite;
   transform: rotate(8deg);
 }
-.plane.plane--2 { top: 55%; font-size: 1.4rem; animation-duration: 22s; animation-delay: -8s; opacity: .75; }
+.plane.plane--2 { top: 55%; width: 1.5rem; height: 1.5rem; animation-duration: 22s; animation-delay: -8s; opacity: .75; }
 @keyframes fly-across {
   0%   { left: -8%; top: 14%; transform: rotate(6deg) scale(1); }
   45%  { top: 28%; transform: rotate(10deg) scale(1.05); }
@@ -435,9 +443,11 @@ p { line-height: 1.65; color: var(--text-muted); margin: 0 0 1em; }
 /* ---------- Filters ---------- */
 .filter-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 36px; }
 .filter-pill {
+  display: inline-flex; align-items: center; gap: 6px;
   padding: 10px 20px; border-radius: var(--radius-pill); border: 1px solid var(--border); background: var(--surface);
   font-weight: 600; font-size: 0.86rem; cursor: pointer; color: var(--text-muted); transition: all .2s ease;
 }
+.filter-pill .icon-svg { width: 14px; height: 14px; }
 .filter-pill.is-active, .filter-pill:hover { background: var(--text); color: var(--bg); border-color: var(--text); }
 
 /* ---------- Reveal on scroll ---------- */
@@ -474,8 +484,9 @@ p { line-height: 1.65; color: var(--text-muted); margin: 0 0 1em; }
 }
 .passport__cover .emblem {
   width: 58px; height: 58px; border: 2px solid #e7d9a8; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin-bottom: 18px;
+  display: flex; align-items: center; justify-content: center; margin-bottom: 18px; color: #e7d9a8;
 }
+.passport__cover .emblem .icon-svg { width: 26px; height: 26px; }
 .passport__cover h2 { color: #efe4bf; font-size: 1.4rem; letter-spacing: .08em; text-transform: uppercase; }
 .passport__cover span { font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; opacity: .75; }
 .passport__inside {
@@ -566,6 +577,7 @@ p { line-height: 1.65; color: var(--text-muted); margin: 0 0 1em; }
   justify-content: center; transition: all .2s ease;
 }
 .social-row a:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+.social-row .icon-svg { width: 16px; height: 16px; }
 
 /* ---------- WhatsApp floating bubble (bottom-right) ---------- */
 .whatsapp-fab {
@@ -575,10 +587,21 @@ p { line-height: 1.65; color: var(--text-muted); margin: 0 0 1em; }
   animation: pulse-wa 2.6s ease-in-out infinite;
 }
 .whatsapp-fab:hover { transform: scale(1.08); }
+.whatsapp-fab .icon-svg { width: 28px; height: 28px; }
 @keyframes pulse-wa {
   0%, 100% { box-shadow: 0 12px 30px rgba(37,211,102,0.45); }
   50% { box-shadow: 0 12px 30px rgba(37,211,102,0.7), 0 0 0 10px rgba(37,211,102,0.12); }
 }
+
+/* ---------- Shared SVG icons (replaces emoji-as-icon usage) ---------- */
+.icon-svg { display: inline-flex; width: 1.2em; height: 1.2em; flex: none; }
+.icon-svg svg { width: 100%; height: 100%; }
+.badge .icon-svg { width: 13px; height: 13px; }
+.trust-icon .icon-svg { width: 32px; height: 32px; color: var(--accent); }
+.quiz-option .icon .icon-svg { width: 30px; height: 30px; color: var(--accent); }
+.value-icon .icon-svg { width: 28px; height: 28px; color: var(--accent); }
+.plane .icon-svg, .plane .icon-svg svg { width: 100%; height: 100%; }
+.contact-icon .icon-svg { width: 34px; height: 34px; color: var(--accent); }
 
 /* ---------- Misc ---------- */
 .tag-strip { display: flex; gap: 10px; flex-wrap: wrap; }
@@ -595,9 +618,10 @@ p { line-height: 1.65; color: var(--text-muted); margin: 0 0 1em; }
 }
 .confirm-box .check {
   width: 76px; height: 76px; border-radius: 50%; background: rgba(255,107,74,0.12); color: var(--accent);
-  display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 20px;
+  display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
   animation: pop-in .5s var(--ease);
 }
+.confirm-box .check .icon-svg { width: 34px; height: 34px; }
 @keyframes pop-in { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
 .instagram-embed {

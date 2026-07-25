@@ -8,55 +8,55 @@ const QUIZ_QUESTIONS = [
   {
     q: "Pick your ideal morning.",
     options: [
-      { label: 'Sunrise dip before anyone else is awake', vibe: 'beach', destId: 'bali', icon: '🌅' },
-      { label: 'Espresso, then a skyline walk', vibe: 'city', destId: 'singapore', icon: '☕' },
-      { label: 'A game drive at first light', vibe: 'adventure', destId: 'kenya', icon: '🦁' },
-      { label: 'Wandering an old town before the crowds', vibe: 'culture', destId: 'santorini', icon: '🏛️' },
+      { label: 'Sunrise dip before anyone else is awake', vibe: 'beach', destId: 'bali' },
+      { label: 'Espresso, then a skyline walk', vibe: 'city', destId: 'singapore' },
+      { label: 'A game drive at first light', vibe: 'adventure', destId: 'kenya' },
+      { label: 'Wandering an old town before the crowds', vibe: 'culture', destId: 'santorini' },
     ],
   },
   {
     q: "Your dream soundtrack right now?",
     options: [
-      { label: 'Waves. Just waves.', vibe: 'beach', destId: 'seychelles', icon: '🌊' },
-      { label: 'Rooftop beats till 2am', vibe: 'city', destId: 'dubai', icon: '🎧' },
-      { label: 'Wind, and nothing else', vibe: 'adventure', destId: 'tanzania', icon: '🍃' },
-      { label: 'Live music spilling out of a café', vibe: 'culture', destId: 'doha', icon: '🎶' },
+      { label: 'Waves. Just waves.', vibe: 'beach', destId: 'seychelles' },
+      { label: 'Rooftop beats till 2am', vibe: 'city', destId: 'dubai' },
+      { label: 'Wind, and nothing else', vibe: 'adventure', destId: 'tanzania' },
+      { label: 'Live music spilling out of a café', vibe: 'culture', destId: 'doha' },
     ],
   },
   {
     q: "What's in your suitcase?",
     options: [
-      { label: 'One swimsuit, five paperbacks', vibe: 'beach', destId: 'bali', icon: '📚' },
-      { label: 'Your sharpest outfit', vibe: 'city', destId: 'tokyo', icon: '👔' },
-      { label: 'Boots that have seen things', vibe: 'adventure', destId: 'cape-town', icon: '🥾' },
-      { label: 'A journal and a good camera', vibe: 'culture', destId: 'santorini', icon: '📷' },
+      { label: 'One swimsuit, five paperbacks', vibe: 'beach', destId: 'bali' },
+      { label: 'Your sharpest outfit', vibe: 'city', destId: 'tokyo' },
+      { label: 'Boots that have seen things', vibe: 'adventure', destId: 'cape-town' },
+      { label: 'A journal and a good camera', vibe: 'culture', destId: 'santorini' },
     ],
   },
   {
     q: "Pick a souvenir to bring home.",
     options: [
-      { label: 'A shell you\'ll forget the story of', vibe: 'beach', destId: 'seychelles', icon: '🐚' },
-      { label: 'Something from a midnight market', vibe: 'city', destId: 'seoul', icon: '🏮' },
-      { label: 'A photo you\'ll never stop showing people', vibe: 'adventure', destId: 'kenya', icon: '📸' },
-      { label: 'A handwoven something with a story', vibe: 'culture', destId: 'doha', icon: '🧵' },
+      { label: 'A shell you\'ll forget the story of', vibe: 'beach', destId: 'seychelles' },
+      { label: 'Something from a midnight market', vibe: 'city', destId: 'seoul' },
+      { label: 'A photo you\'ll never stop showing people', vibe: 'adventure', destId: 'kenya' },
+      { label: 'A handwoven something with a story', vibe: 'culture', destId: 'doha' },
     ],
   },
   {
     q: "Your ideal pace, honestly?",
     options: [
-      { label: 'Horizontal, mostly', vibe: 'beach', destId: 'bali', icon: '🏖️' },
-      { label: 'Fast — then dinner at 11pm', vibe: 'city', destId: 'singapore', icon: '🌃' },
-      { label: 'Up before the sun, out till it sets', vibe: 'adventure', destId: 'tanzania', icon: '🌄' },
-      { label: 'Slow mornings, long lunches', vibe: 'culture', destId: 'santorini', icon: '🍷' },
+      { label: 'Horizontal, mostly', vibe: 'beach', destId: 'bali' },
+      { label: 'Fast — then dinner at 11pm', vibe: 'city', destId: 'singapore' },
+      { label: 'Up before the sun, out till it sets', vibe: 'adventure', destId: 'tanzania' },
+      { label: 'Slow mornings, long lunches', vibe: 'culture', destId: 'santorini' },
     ],
   },
   {
     q: "Pick a feeling to chase.",
     options: [
-      { label: 'Stillness', vibe: 'beach', destId: 'seychelles', icon: '🧘' },
-      { label: 'Electricity', vibe: 'city', destId: 'dubai', icon: '⚡' },
-      { label: 'Awe', vibe: 'adventure', destId: 'cape-town', icon: '🏔️' },
-      { label: 'Wonder', vibe: 'culture', destId: 'doha', icon: '✨' },
+      { label: 'Stillness', vibe: 'beach', destId: 'seychelles' },
+      { label: 'Electricity', vibe: 'city', destId: 'dubai' },
+      { label: 'Awe', vibe: 'adventure', destId: 'cape-town' },
+      { label: 'Wonder', vibe: 'culture', destId: 'doha' },
     ],
   },
 ];
@@ -75,7 +75,7 @@ function renderQuiz(mountId) {
       <div class="quiz-options">
         ${step.options.map((opt, oi) => `
           <button class="quiz-option" data-vibe="${opt.vibe}" data-dest="${opt.destId}" type="button">
-            <span class="icon">${opt.icon}</span>
+            <span class="icon">${iconSpan(opt.vibe)}</span>
             <strong>${opt.label}</strong>
           </button>
         `).join('')}
@@ -158,7 +158,7 @@ function renderQuiz(mountId) {
 
     mount.querySelector('#quiz-result-step').innerHTML = `
       <div class="text-center">
-        <span class="badge ${vibeInfo.badge}" style="margin-bottom:18px;">${vibeInfo.icon} ${vibeInfo.label}</span>
+        <span class="badge ${vibeInfo.badge}" style="margin-bottom:18px;">${iconSpan(result.vibe)} ${vibeInfo.label}</span>
         <h2>Your travel vibe is ${vibeInfo.label}.</h2>
         <p style="max-width:420px;margin:0 auto 28px;">${vibeInfo.desc}</p>
       </div>

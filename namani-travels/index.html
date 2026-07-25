@@ -18,7 +18,7 @@
         <div class="passport__stamp">FLY<br/>NAMANI</div>
       </div>
       <div class="passport__cover">
-        <div class="emblem">✈</div>
+        <div class="emblem" data-icon="plane"></div>
         <h2>Namani</h2>
         <span>Travel Document</span>
       </div>
@@ -39,8 +39,8 @@
       </div>
       <div class="plane-layer">
         <svg class="plane-trail" viewBox="0 0 1000 120" preserveAspectRatio="none"><path d="M -50 60 Q 300 10, 550 55 T 1050 40" /></svg>
-        <span class="plane">✈</span>
-        <span class="plane plane--2">✈</span>
+        <span class="plane" data-icon="plane"></span>
+        <span class="plane plane--2" data-icon="plane"></span>
       </div>
 
       <div class="container">
@@ -65,22 +65,22 @@
       <div class="container">
         <div class="grid grid-4 reveal-stagger" id="trust-strip">
           <div class="text-center">
-            <div style="font-size:1.8rem;">🧑‍💻</div>
+            <div class="trust-icon" data-icon="person"></div>
             <h3 style="font-size:1rem;margin-top:10px;">Real humans, not bots</h3>
             <p style="font-size:.88rem;">Every request gets a real agent, not an auto-reply.</p>
           </div>
           <div class="text-center">
-            <div style="font-size:1.8rem;">💬</div>
+            <div class="trust-icon" data-icon="chat"></div>
             <h3 style="font-size:1rem;margin-top:10px;">WhatsApp follow-up</h3>
             <p style="font-size:.88rem;">Quotes and updates wherever you already are.</p>
           </div>
           <div class="text-center">
-            <div style="font-size:1.8rem;">🌍</div>
+            <div class="trust-icon" data-icon="globe"></div>
             <h3 style="font-size:1rem;margin-top:10px;">Any route, any airline</h3>
             <p style="font-size:.88rem;">Global network — not tied to one carrier.</p>
           </div>
           <div class="text-center">
-            <div style="font-size:1.8rem;">🔒</div>
+            <div class="trust-icon" data-icon="lock"></div>
             <h3 style="font-size:1rem;margin-top:10px;">Your details, protected</h3>
             <p style="font-size:.88rem;">We only ever use your info to plan your trip.</p>
           </div>
@@ -100,10 +100,10 @@
         </div>
         <div class="filter-row reveal" id="home-filter-row">
           <button class="filter-pill is-active" data-vibe="all">All</button>
-          <button class="filter-pill" data-vibe="beach">🏖️ Beach</button>
-          <button class="filter-pill" data-vibe="city">🏙️ City Escape</button>
-          <button class="filter-pill" data-vibe="adventure">🧭 Adventure</button>
-          <button class="filter-pill" data-vibe="culture">🏛️ Culture</button>
+          <button class="filter-pill" data-vibe="beach" data-icon="beach">Beach</button>
+          <button class="filter-pill" data-vibe="city" data-icon="city">City Escape</button>
+          <button class="filter-pill" data-vibe="adventure" data-icon="adventure">Adventure</button>
+          <button class="filter-pill" data-vibe="culture" data-icon="culture">Culture</button>
         </div>
         <div class="carousel-controls">
           <button class="carousel-btn" id="carousel-prev" aria-label="Scroll left">←</button>
@@ -126,13 +126,13 @@
           <div class="grid grid-2" style="gap:16px;">
             <div class="card" style="aspect-ratio:1;">
               <div class="card__media" style="aspect-ratio:1;">
-                <span class="badge badge--beach card__badge">🏖️ Beach</span>
+                <span class="badge badge--beach card__badge" data-icon="beach">Beach</span>
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Anse_Lazio_Beach%2C_Seychelles_%2838720921075%29.jpg/960px-Anse_Lazio_Beach%2C_Seychelles_%2838720921075%29.jpg" alt="Seychelles" loading="lazy" />
               </div>
             </div>
             <div class="card" style="aspect-ratio:1;margin-top:28px;">
               <div class="card__media" style="aspect-ratio:1;">
-                <span class="badge badge--adventure card__badge">🧭 Adventure</span>
+                <span class="badge badge--adventure card__badge" data-icon="adventure">Adventure</span>
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Wildebeest_Migration_in_Serengeti_National_Park%2C_Tanzania.jpg/960px-Wildebeest_Migration_in_Serengeti_National_Park%2C_Tanzania.jpg" alt="Tanzania" loading="lazy" />
               </div>
             </div>
@@ -154,21 +154,21 @@
         <div class="grid grid-3 reveal-stagger">
           <div class="card">
             <div class="card__body">
-              <span class="badge badge--beach" style="margin-bottom:14px;">🏖️ Bali</span>
+              <span class="badge badge--beach" style="margin-bottom:14px;" data-icon="beach">Bali</span>
               <p style="font-size:1rem;color:var(--text);">"Sent them one voice note about wanting to 'disappear for a week' and they came back with the exact right trip. Didn't lift a finger after that."</p>
               <div class="card__meta"><span>— Amara O.</span><span>★★★★★</span></div>
             </div>
           </div>
           <div class="card">
             <div class="card__body">
-              <span class="badge badge--city" style="margin-bottom:14px;">🏙️ Dubai</span>
+              <span class="badge badge--city" style="margin-bottom:14px;" data-icon="city">Dubai</span>
               <p style="font-size:1rem;color:var(--text);">"Booked business class for a work trip in under an hour of WhatsApp back-and-forth. No hold music, no call centre."</p>
               <div class="card__meta"><span>— Tobi A.</span><span>★★★★★</span></div>
             </div>
           </div>
           <div class="card">
             <div class="card__body">
-              <span class="badge badge--adventure" style="margin-bottom:14px;">🧭 Kenya</span>
+              <span class="badge badge--adventure" style="margin-bottom:14px;" data-icon="adventure">Kenya</span>
               <p style="font-size:1rem;color:var(--text);">"Took the vibe quiz as a joke during a boring meeting. Three weeks later I was in the Mara. Genuinely life-changing trip."</p>
               <div class="card__meta"><span>— Chidi N.</span><span>★★★★★</span></div>
             </div>
@@ -194,6 +194,7 @@
   <div id="whatsapp-fab-slot"></div>
 
   <script src="assets/js/config.js"></script>
+  <script src="assets/js/icons.js"></script>
   <script src="assets/js/destinations.js"></script>
   <script src="assets/js/airports.js"></script>
   <script src="assets/js/common.js"></script>

@@ -59,7 +59,7 @@ function renderVibeCard(mount, p) {
     <div class="card reveal is-visible" style="margin-bottom:28px;">
       <div class="two-col" style="grid-template-columns: 140px 1fr; gap:20px; align-items:center; padding:16px;">
         <div class="card__media" style="aspect-ratio:1; border-radius:var(--radius-md);">
-          <span class="badge ${vibeInfo.badge} card__badge" style="font-size:0.62rem;padding:4px 8px;">${vibeInfo.icon}</span>
+          <span class="badge ${vibeInfo.badge} card__badge" style="font-size:0.62rem;padding:4px 8px;">${iconSpan(p.vibe)}</span>
           <img src="${dest.img}" alt="${dest.name}" loading="lazy" />
         </div>
         <div>
@@ -159,7 +159,7 @@ function initQuotePage() {
 
     document.getElementById('quote-form-panel').innerHTML = `
       <div class="confirm-box">
-        <div class="check">✓</div>
+        <div class="check">${iconSpan('check')}</div>
         <h3>We've got your request!</h3>
         <p>Expect a call or WhatsApp message from our team ${SITE_CONFIG.supportHoursNote}. In the meantime, feel free to say hi:</p>
         <a href="${buildWhatsAppLink(waMessage)}" target="_blank" rel="noopener" class="btn btn-primary btn-block" style="max-width:320px;margin:0 auto;">Message Us on WhatsApp</a>

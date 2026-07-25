@@ -64,9 +64,9 @@ function renderFooter() {
             <div class="footer__brand"><span class="dot" style="width:9px;height:9px;border-radius:50%;background:var(--accent);"></span>${SITE_CONFIG.brandName}</div>
             <p style="max-width:280px;">Namani means peace. We plan trips that feel like exhaling — adventurous, unhurried, entirely yours.</p>
             <div class="social-row">
-              <a href="${SITE_CONFIG.instagramUrl}" target="_blank" rel="noopener" aria-label="Instagram">${ICONS.instagram}</a>
-              <a href="${buildWhatsAppLink()}" target="_blank" rel="noopener" aria-label="WhatsApp">${ICONS.whatsapp}</a>
-              <a href="mailto:hello@namanitravels.com" aria-label="Email">${ICONS.mail}</a>
+              <a href="${SITE_CONFIG.instagramUrl}" target="_blank" rel="noopener" aria-label="Instagram">${iconSpan('instagram')}</a>
+              <a href="${buildWhatsAppLink()}" target="_blank" rel="noopener" aria-label="WhatsApp">${iconSpan('whatsapp')}</a>
+              <a href="mailto:hello@namanitravels.com" aria-label="Email">${iconSpan('mail')}</a>
             </div>
           </div>
           <div>
@@ -103,12 +103,6 @@ function renderFooter() {
     </footer>
   `;
 }
-
-const ICONS = {
-  instagram: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>',
-  whatsapp: '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.2-.1-1-.4-2-1.2-.7-.7-1.2-1.5-1.4-1.7-.1-.2 0-.4.1-.5l.4-.5c.1-.2.2-.3.2-.5.1-.2 0-.4 0-.5-.1-.1-.6-1.5-.8-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.2 0 1.3.9 2.5 1.1 2.7.1.2 1.8 2.8 4.5 3.8.6.3 1.1.4 1.5.5.6.2 1.2.2 1.6.1.5-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.2-.4-.3z"/></svg>',
-  mail: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 6 10 7 10-7"/></svg>',
-};
 
 function initTheme() {
   const saved = localStorage.getItem('namani-theme');
@@ -171,7 +165,7 @@ function initReveal() {
 function renderWhatsAppFab() {
   const mount = document.getElementById('whatsapp-fab-slot');
   if (!mount) return;
-  mount.innerHTML = `<a class="whatsapp-fab" href="${buildWhatsAppLink()}" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">${ICONS.whatsapp.replace('width="16" height="16"', 'width="28" height="28"')}</a>`;
+  mount.innerHTML = `<a class="whatsapp-fab" href="${buildWhatsAppLink()}" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">${iconSpan('whatsapp')}</a>`;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
