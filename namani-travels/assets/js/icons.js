@@ -6,6 +6,8 @@
 // ============================================================
 
 const UI_ICONS = {
+  namaniMark: '<svg viewBox="0 0 120 120" fill="currentColor"><path d="M 72 12 A 33 33 0 0 1 105 45 L 72 45 Z"/><path d="M 33 12 L 78 57 L 78 108 L 33 63 Z"/><path d="M 15 75 A 33 33 0 0 1 48 108 L 15 108 Z"/></svg>',
+
   plane: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V4.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.4V19l-2.5 1.6V22l3.5-1 3.5 1v-1.4L13 19v-5.4z"/></svg>',
 
   beach: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="3.6"/><path d="M2.5 17.5c1.8-1.8 3.6-1.8 5.4 0s3.6 1.8 5.4 0 3.6-1.8 5.4 0"/><path d="M2.5 21c1.8-1.8 3.6-1.8 5.4 0s3.6 1.8 5.4 0 3.6-1.8 5.4 0"/></svg>',
@@ -15,6 +17,8 @@ const UI_ICONS = {
   adventure: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m14.8 9.2-1.9 4.7a1 1 0 0 1-.5.5l-4.7 1.9 1.9-4.7a1 1 0 0 1 .5-.5z"/></svg>',
 
   culture: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M4 21V10L12 4l8 6v11"/><path d="M8 21v-7M12 21v-7M16 21v-7"/></svg>',
+
+  honeymoon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.5s-7.5-4.6-9.8-9.3C.7 8 2.4 4.8 5.5 4.2c1.9-.4 3.8.4 5 2 1.2-1.6 3.1-2.4 5-2 3.1.6 4.8 3.8 3.3 7-2.3 4.7-9.8 9.3-9.8 9.3z"/></svg>',
 
   person: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20.5c0-4.1 3.4-6.5 7.5-6.5s7.5 2.4 7.5 6.5"/></svg>',
 
@@ -39,6 +43,14 @@ const UI_ICONS = {
   mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 6 10 7 10-7"/></svg>',
 
   check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4.5 4.5L19 7"/></svg>',
+
+  visa: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h5M8 12h4"/><circle cx="16" cy="15.5" r="2.4"/><path d="m14.5 15.5 1 1 2-2"/></svg>',
+
+  hotel: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a2 2 0 0 1 2-2h5a2 2 0 0 1 2 2v2"/><path d="M12 14h7a2 2 0 0 1 2 2v2"/><path d="M3 10.5V7M3 21v-3M21 21v-3"/><circle cx="6.5" cy="11" r="1.3"/></svg>',
+
+  transfer: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16V11l2-5h12l2 5v5"/><path d="M4 16h16"/><circle cx="7.5" cy="16" r="1.6"/><circle cx="16.5" cy="16" r="1.6"/></svg>',
+
+  mice: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="2.6"/><circle cx="16" cy="8" r="2.6"/><path d="M3 19c0-3 2.5-5 5-5s5 2 5 5"/><path d="M11 19c0-3 2.5-5 5-5s5 2 5 5"/></svg>',
 };
 
 function iconSpan(name, extraClass = '') {

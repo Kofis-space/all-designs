@@ -5,7 +5,7 @@
 
 const NAV_LINKS = [
   { href: 'index.html', label: 'Home', page: 'home' },
-  { href: 'search.html', label: 'Plan a Trip', page: 'search' },
+  { href: 'services.html', label: 'Services', page: 'services' },
   { href: 'destinations.html', label: 'Explore', page: 'destinations' },
   { href: 'about.html', label: 'About', page: 'about' },
 ];
@@ -23,12 +23,12 @@ function renderHeader() {
     <header class="nav" id="site-nav">
       <div class="container nav__inner">
         <a href="index.html" class="nav__logo">
-          <span class="dot"></span> Namani Travels
+          ${iconSpan('namaniMark', 'nav__logo-mark')} Namani
         </a>
         <ul class="nav__links">${navItems}</ul>
         <div class="nav__actions">
           <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode"></button>
-          <a href="search.html" class="btn btn-primary btn-sm nav__cta">Plan My Trip</a>
+          <a href="index.html#plan-trip" class="btn btn-primary btn-sm nav__cta">Plan My Trip</a>
           <button class="nav__burger" id="nav-burger" aria-label="Open menu">
             <span></span><span></span><span></span>
           </button>
@@ -37,12 +37,12 @@ function renderHeader() {
     </header>
     <div class="mobile-drawer" id="mobile-drawer">
       <div class="mobile-drawer__top">
-        <a href="index.html" class="nav__logo"><span class="dot"></span> Namani</a>
+        <a href="index.html" class="nav__logo">${iconSpan('namaniMark', 'nav__logo-mark')} Namani</a>
         <button class="mobile-drawer__close" id="drawer-close" aria-label="Close menu">&times;</button>
       </div>
       <nav>${NAV_LINKS.map((l) => `<a href="${l.href}" class="${l.page === current ? 'is-active' : ''}">${l.label}</a>`).join('')}</nav>
       <div class="mobile-drawer__footer">
-        <a href="search.html" class="btn btn-primary btn-block">Plan My Trip</a>
+        <a href="index.html#plan-trip" class="btn btn-primary btn-block">Plan My Trip</a>
         <button class="theme-toggle" id="theme-toggle-mobile" aria-label="Toggle dark mode" style="align-self:center;"></button>
       </div>
     </div>
@@ -58,18 +58,19 @@ function renderFooter() {
       <div class="container">
         <div class="footer__grid">
           <div>
-            <div class="footer__brand"><span class="dot" style="width:9px;height:9px;border-radius:50%;background:var(--accent);"></span>${SITE_CONFIG.brandName}</div>
-            <p style="max-width:280px;">Namani means peace. We plan trips that feel like exhaling — adventurous, unhurried, entirely yours.</p>
+            <div class="footer__brand">${iconSpan('namaniMark', 'footer__brand-mark')}${SITE_CONFIG.brandName}</div>
+            <p style="max-width:280px;">We plan trips that feel like exhaling — unhurried, entirely yours.</p>
             <div class="social-row">
               <a href="${SITE_CONFIG.instagramUrl}" target="_blank" rel="noopener" aria-label="Instagram">${iconSpan('instagram')}</a>
               <a href="${buildWhatsAppLink()}" target="_blank" rel="noopener" aria-label="WhatsApp">${iconSpan('whatsapp')}</a>
-              <a href="mailto:hello@namanitravels.com" aria-label="Email">${iconSpan('mail')}</a>
+              <a href="mailto:${SITE_CONFIG.email}" aria-label="Email">${iconSpan('mail')}</a>
             </div>
           </div>
           <div>
             <h4>Explore</h4>
             <ul>
-              <li><a href="search.html">Plan a Trip</a></li>
+              <li><a href="index.html#plan-trip">Plan a Trip</a></li>
+              <li><a href="services.html">Services</a></li>
               <li><a href="destinations.html">Destinations</a></li>
               <li><a href="destinations.html#stories">Travel Stories</a></li>
               <li><a href="index.html#retake-quiz">Retake Traveler Quiz</a></li>
@@ -88,7 +89,7 @@ function renderFooter() {
             <ul>
               <li><a href="${buildWhatsAppLink()}" target="_blank" rel="noopener">WhatsApp Us</a></li>
               <li><a href="${SITE_CONFIG.instagramUrl}" target="_blank" rel="noopener">${SITE_CONFIG.instagramHandle}</a></li>
-              <li><a href="mailto:hello@namanitravels.com">hello@namanitravels.com</a></li>
+              <li><a href="mailto:${SITE_CONFIG.email}">${SITE_CONFIG.email}</a></li>
             </ul>
           </div>
         </div>

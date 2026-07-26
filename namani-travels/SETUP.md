@@ -1,18 +1,18 @@
-# Namani Travels — Go-Live Guide
+# Namani Travels & Tours — Go-Live Guide
 
-This is written for a non-technical owner. No coding required — just copying, pasting, and clicking "Deploy" a few times. Budget about 45–60 minutes for everything.
+This is written for a non-technical owner. No coding required — just copying, pasting, and clicking "Deploy" a few times. Budget about 30–45 minutes for everything.
 
 ## What you have
 
 A 5-page website, fully responsive, with light/dark mode:
 
-- `index.html` — Home (hero, skippable "what kind of traveler are you" gate, search widget, destination preview, testimonials)
-- `search.html` — Plan a Trip (search widget → quote/contact capture reveals inline, no separate page)
-- `destinations.html` — Explore (destinations grid + travel journal + testimonials, with photo credits)
-- `about.html` — About & Contact (brand story + WhatsApp/Instagram contact block)
+- `index.html` — Home (hero with search widget + inline "Get Your Quote" panel, skippable "what kind of traveler are you" gate, destination preview, testimonials)
+- `services.html` — Our Services (E Visa, Travel Insurance, Charter, Hotel Accommodation, Airport Transfer, MICE, Ground Transportation, Tours)
+- `destinations.html` — Explore (destinations grid across 5 categories + travel journal + testimonials, with photo credits)
+- `about.html` — About & Contact (brand story + WhatsApp/Instagram/email contact block, complaints, and emergency contact)
 - `privacy.html` — Privacy Policy & Terms (linked from the footer only, not the main nav)
 
-Everything you'll actually need to edit lives in **one file**: `assets/js/config.js`.
+Everything you'll actually need to edit lives in **one file**: `assets/js/config.js`. Your WhatsApp number (+234 707 007 6442), email (namanitravelsandtour@gmail.com), and Instagram handle (@namani_travels) are already set there — double-check them in Step 1, then move on to connecting the quote form.
 
 ---
 
@@ -20,42 +20,26 @@ Everything you'll actually need to edit lives in **one file**: `assets/js/config
 
 You don't need to install anything to look at the site. Just double-click `index.html` and it opens in your browser. Click around, toggle dark mode (the little sun/moon switch in the top right), and shrink your browser window to see the mobile layout.
 
-**One thing that won't work yet:** the "Get Your Quote" form won't actually send anywhere until you do Steps 3 and 4 below.
+**One thing that won't work yet:** the "Get Your Quote" form won't actually send anywhere until you do Steps 2 and 3 below.
 
 ---
 
-## Step 1 — Set your WhatsApp number
+## Step 1 — Confirm your contact details
 
-Open `assets/js/config.js` in any text editor (Notepad, TextEdit, or VS Code). Find this line near the top:
-
-```js
-whatsappNumber: '2348000000000',
-```
-
-Replace it with your real WhatsApp Business number — **country code + number, digits only, no `+`, no spaces, no dashes**. For example, a Nigerian number `+234 801 234 5678` becomes:
+Open `assets/js/config.js` in any text editor (Notepad, TextEdit, or VS Code) and confirm these are correct:
 
 ```js
-whatsappNumber: '2348012345678',
+whatsappNumber: '2347070076442',      // +234 707 007 6442, digits only, no + or spaces
+instagramHandle: '@namani_travels',
+instagramUrl: 'https://instagram.com/namani_travels',
+email: 'namanitravelsandtour@gmail.com',
 ```
 
-Save the file. Every "Message Us on WhatsApp" button and the floating chat bubble now points to your real number, pre-filled with a friendly opening message.
+If any of these ever change, this is the only file you need to edit — every WhatsApp button, the floating chat bubble, the footer, and the About & Contact page all pull from here automatically.
 
 ---
 
-## Step 2 — Update your Instagram handle and email
-
-Still in `config.js`, update:
-
-```js
-instagramHandle: '@namanitravels',
-instagramUrl: 'https://instagram.com/namanitravels',
-```
-
-And search for `hello@namanitravels.com` across `about.html`, `privacy.html`, and `assets/js/common.js` — replace with your real email address (use your editor's "Find in Files" / "Find All" feature).
-
----
-
-## Step 3 — Connect the quote form to your inbox (Formspree)
+## Step 2 — Connect the quote form to your inbox (Formspree)
 
 This makes every "Get Your Quote" submission land in your email.
 
@@ -72,7 +56,7 @@ That's it — Formspree's free plan covers up to 50 submissions/month, which is 
 
 ---
 
-## Step 4 — Log every lead to a Google Sheet
+## Step 3 — Log every lead to a Google Sheet
 
 This gives you a running, sortable spreadsheet of every request — handy for follow-up and reporting.
 
@@ -122,13 +106,13 @@ Every quote request now appends a new row to your sheet **and** emails you via F
 
 ---
 
-## Step 5 — Put it on the internet (Netlify — free, ~5 minutes)
+## Step 4 — Put it on the internet (Netlify — free, ~5 minutes)
 
 1. Go to [netlify.com](https://www.netlify.com) and sign up (free plan is plenty).
 2. On your dashboard, find the box that says **"Drag and drop your site folder here"**.
 3. Drag your entire `namani-travels` folder into it.
 4. Netlify uploads it and gives you a live URL like `https://random-name-123.netlify.app` within seconds.
-5. To use your own domain (e.g. `namanitravels.com`): go to **Site settings → Domain management → Add a custom domain**, then follow Netlify's instructions to point your domain's DNS at Netlify (usually 2–4 records you add at wherever you bought the domain — GoDaddy, Namecheap, etc).
+5. To use your own domain: go to **Site settings → Domain management → Add a custom domain**, then follow Netlify's instructions to point your domain's DNS at Netlify (usually 2–4 records you add at wherever you bought the domain — GoDaddy, Namecheap, etc).
 
 **Alternative:** Vercel and GitHub Pages work the same way (drag-and-drop or connect a repo) if you prefer either of those.
 
@@ -136,18 +120,18 @@ Every quote request now appends a new row to your sheet **and** emails you via F
 
 ---
 
-## Step 6 — Connect your real Instagram feed (optional, ~5 minutes)
+## Step 5 — Connect your real Instagram feed (optional, ~5 minutes)
 
 The Contact section (bottom of the About & Contact page) currently shows placeholder travel photos in an Instagram-style grid. To show your *actual* Instagram posts:
 
 1. Sign up at [snapwidget.com](https://snapwidget.com) (or elfsight.com) — free tier available.
-2. Connect your Instagram account and choose a grid-style widget.
+2. Connect your Instagram account (@namani_travels) and choose a grid-style widget.
 3. They'll give you an embed `<iframe>` snippet.
 4. Open `about.html`, find the `<div class="instagram-embed">...</div>` block, and replace it with the snippet they gave you.
 
 ---
 
-## Step 7 — Set up ads (Meta / Google) compliance
+## Step 6 — Set up ads (Meta / Google) compliance
 
 Both Meta and Google require a visible Privacy Policy before you can run ads collecting personal data — you already have one at `privacy.html`. Before running ads:
 
@@ -157,22 +141,23 @@ Both Meta and Google require a visible Privacy Policy before you can run ads col
 
 ---
 
-## Step 8 — Test everything before sending traffic
+## Step 7 — Test everything before sending traffic
 
 Go through this checklist live on your Netlify URL:
 
 - [ ] Home page loads: passport intro plays once, then the "what kind of traveler are you" gate appears — try both Skip and answering it
 - [ ] Toggle dark mode — check it looks right on every page, not just Home
 - [ ] Shrink the browser (or open on your phone) — menu collapses into the mobile drawer correctly
-- [ ] On `search.html`, try every cabin class button (Economy/Premium/Business/First) and confirm it's obviously selectable
-- [ ] Submit a search → confirm the quote panel reveals inline (no page reload) with your route/dates/class shown correctly
+- [ ] On the Home page's search widget, try every cabin class button (Economy/Premium/Business/First) and confirm it's obviously selectable
+- [ ] Submit a search → confirm the quote panel reveals inline in the hero (no page reload) with your route/dates/class shown correctly
 - [ ] Check a special request (e.g. "Group trip") and confirm it shows up in the quote summary
-- [ ] Take the traveler-type quiz on Home → confirm the matched destination shows when you land on `search.html`
-- [ ] On the quiz, pick "Business trip" → confirm it routes to a corporate result and pre-sets Business class + the Corporate travel flag on `search.html`
+- [ ] Take the traveler-type quiz on Home → confirm the matched destination shows when you land back on the quote panel
+- [ ] On the quiz, pick "Business trip" → confirm it routes to a corporate result and pre-sets Business class + the Corporate travel flag
 - [ ] Submit the quote form with a real email/phone → check it arrives in your email (Formspree) **and** appears as a new row in your Google Sheet
 - [ ] Click every WhatsApp button/bubble → confirm it opens WhatsApp with your number and a sensible pre-filled message
-- [ ] Click through to Explore (`destinations.html`), filter by each category (Beach/City/Adventure/Culture), and scroll down to confirm the Stories section is there too
-- [ ] Check `about.html` — confirm the Contact block near the bottom works
+- [ ] Visit `services.html` and confirm all 8 services display correctly
+- [ ] Click through to Explore (`destinations.html`), filter by each category (Beach please/City Escape/Adventures/Honeymoon/Culture), and scroll down to confirm the Stories section is there too
+- [ ] Check `about.html` — confirm the Contact block, plus the Complaints and Emergency buttons, all open WhatsApp correctly
 - [ ] Check `privacy.html` reads correctly and the date is updated
 - [ ] Footer's "Retake Traveler Quiz" link reopens the gate from any page
 

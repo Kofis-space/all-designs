@@ -3,9 +3,8 @@
 // Renders into any element with an id, handles trip type tabs, city
 // autocomplete, passenger count, cabin class, special requests, and
 // advanced options. On submit, calls options.onSubmit(params) if
-// provided (used to reveal the quote panel inline on search.html);
-// otherwise navigates to search.html carrying the trip as query params
-// (used by the lightweight widget embedded on the Home page).
+// provided (used to reveal the quote panel inline on the Home page);
+// otherwise navigates to index.html carrying the trip as query params.
 // ============================================================
 
 const CABIN_CLASSES = ['Economy', 'Premium Economy', 'Business', 'First'];
@@ -281,7 +280,7 @@ function renderSearchWidget(mountId, options = {}) {
     if (options.onSubmit) {
       options.onSubmit(params);
     } else {
-      window.location.href = `search.html?${params.toString()}&fromWidgetSubmit=1`;
+      window.location.href = `index.html?${params.toString()}&fromWidgetSubmit=1#plan-trip`;
     }
   });
 

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Our Services — Namani Travels &amp; Tours</title>
+<meta name="description" content="Beyond flights: e-visas, travel insurance, charters, hotels, airport transfers, MICE, ground transportation, and tours — all arranged by Namani Travels & Tours." />
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body data-page="services">
+
+  <div id="site-header"></div>
+
+  <main>
+    <section class="section" style="padding-top:calc(var(--nav-h) + 56px);">
+      <div class="container">
+        <div class="text-center" style="max-width:640px;margin:0 auto 32px;">
+          <span class="eyebrow" style="justify-content:center;">What we handle</span>
+          <h1>Our Services</h1>
+          <p>Flights are just the start. Here's everything else we sort out so your trip actually comes together.</p>
+        </div>
+
+        <div class="grid grid-4 reveal-stagger" id="services-grid">
+          <div class="card">
+            <div class="card__body">
+              <div class="value-icon" data-icon="visa"></div>
+              <h3 style="margin-top:12px;">E Visa</h3>
+              <p style="margin:0;">Entry requirements handled before you pack — we process the paperwork so a visa issue is never the reason you don't fly.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card__body">
+              <div class="value-icon" data-icon="shieldCheck"></div>
+              <h3 style="margin-top:12px;">Travel Insurance</h3>
+              <p style="margin:0;">Cover for the trip you didn't plan for — medical, delays, and lost luggage, sorted before you leave.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card__body">
+              <div class="value-icon" data-icon="plane"></div>
+              <h3 style="margin-top:12px;">Charter</h3>
+              <p style="margin:0;">Private and charter flights for the trips that don't run on a commercial schedule.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card__body">
+              <div class="value-icon" data-icon="hotel"></div>
+              <h3 style="margin-top:12px;">Hotel Accommodation</h3>
+              <p style="margin:0;">From boutique stays to full resorts, booked and confirmed before you land.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card__body">
+              <div class="value-icon" data-icon="transfer"></div>
+              <h3 style="margin-top:12px;">Airport Transfer</h3>
+              <p style="margin:0;">A driver waiting at arrivals, every time — no queuing for a cab after a long-haul flight.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card__body">
+              <div class="value-icon" data-icon="mice"></div>
+              <h3 style="margin-top:12px;">MICE</h3>
+              <p style="margin:0;">Meetings, incentives, conferences, and exhibitions — planned end to end for groups of any size.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card__body">
+              <div class="value-icon" data-icon="transfer"></div>
+              <h3 style="margin-top:12px;">Ground Transportation</h3>
+              <p style="margin:0;">Cars and coaches between cities, arranged for the whole itinerary — not just the airport run.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card__body">
+              <div class="value-icon" data-icon="globe"></div>
+              <h3 style="margin-top:12px;">Tours</h3>
+              <p style="margin:0;">Guided experiences and day trips woven into your itinerary, wherever you land.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section text-center">
+      <div class="container reveal" style="max-width:560px;">
+        <h2>Need one of these, or all of them?</h2>
+        <p>Tell us what the trip needs — we'll quote the flights and everything around them in one go.</p>
+        <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+          <a href="index.html#plan-trip" class="btn btn-primary">Get a Quote</a>
+          <a href="#" id="services-whatsapp" class="btn btn-outline">Message Us on WhatsApp</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+  <div id="whatsapp-fab-slot"></div>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/icons.js"></script>
+  <script src="assets/js/destinations.js"></script>
+  <script src="assets/js/common.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('services-whatsapp').href = buildWhatsAppLink();
+    });
+  </script>
+</body>
+</html>

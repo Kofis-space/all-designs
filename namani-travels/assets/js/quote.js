@@ -1,10 +1,10 @@
 // ============================================================
 // Namani Travels — inline "Get Your Quote" panel logic.
-// Lives on the Plan a Trip page (search.html). Reads the trip either
+// Lives inline on the Home page's hero (index.html). Reads the trip either
 // from an explicit query string (passed straight from the search
 // widget's onSubmit, no navigation needed) or from the page's own URL
-// (when arriving from Home's widget, or a shared link), renders a
-// confirmation summary, and dual-submits the lead form.
+// (when arriving via a shared link), renders a confirmation summary,
+// and dual-submits the lead form.
 // ============================================================
 
 function readTripParams(queryString) {
@@ -187,7 +187,7 @@ function initQuotePanel(queryString) {
     }
 
     const tripLine = p.from && p.to ? ` (${p.from} → ${p.to})` : '';
-    const waMessage = `Hi Namani Travels! I just requested a quote${tripLine}. My email is ${email}.`;
+    const waMessage = `Hi Namani Travels & Tours! I just requested a quote${tripLine}. My email is ${email}.`;
 
     panel.innerHTML = `
       <div class="confirm-box">

@@ -10,28 +10,28 @@ const PERSONA_QUESTIONS = [
   {
     q: "Pick your ideal morning.",
     options: [
-      { label: 'Sunrise dip before anyone else is awake', persona: 'beach', destId: 'bali' },
+      { label: 'Sunrise dip before anyone else is awake', persona: 'beach', destId: 'seychelles' },
       { label: 'Espresso, then a skyline walk', persona: 'city', destId: 'singapore' },
-      { label: 'A game drive at first light', persona: 'adventurer', destId: 'kenya' },
-      { label: 'Wandering an old town before the crowds', persona: 'culture', destId: 'santorini' },
+      { label: 'A game drive at first light', persona: 'adventurer', destId: 'nairobi' },
+      { label: 'Wandering an old town before the crowds', persona: 'culture', destId: 'marrakech' },
     ],
   },
   {
     q: "Your dream soundtrack right now?",
     options: [
-      { label: 'Waves. Just waves.', persona: 'beach', destId: 'seychelles' },
+      { label: 'Waves. Just waves.', persona: 'beach', destId: 'mauritius' },
       { label: 'Rooftop beats till 2am', persona: 'city', destId: 'dubai' },
-      { label: 'Wind, and nothing else', persona: 'adventurer', destId: 'tanzania' },
-      { label: 'Live music spilling out of a café', persona: 'culture', destId: 'doha' },
+      { label: 'Wind, and nothing else', persona: 'adventurer', destId: 'zanzibar' },
+      { label: 'Live music spilling out of a café', persona: 'culture', destId: 'rome' },
     ],
   },
   {
     q: "What's in your suitcase?",
     options: [
-      { label: 'One swimsuit, five paperbacks', persona: 'beach', destId: 'bali' },
+      { label: 'One swimsuit, five paperbacks', persona: 'beach', destId: 'maldives' },
       { label: 'Your sharpest outfit', persona: 'city', destId: 'tokyo' },
       { label: 'Boots that have seen things', persona: 'adventurer', destId: 'cape-town' },
-      { label: 'A journal and a good camera', persona: 'culture', destId: 'santorini' },
+      { label: 'A journal and a good camera', persona: 'culture', destId: 'lalibela' },
     ],
   },
   {
@@ -39,8 +39,8 @@ const PERSONA_QUESTIONS = [
     options: [
       { label: 'Stillness', persona: 'beach', destId: 'seychelles' },
       { label: 'Electricity', persona: 'city', destId: 'dubai' },
-      { label: 'Awe', persona: 'adventurer', destId: 'cape-town' },
-      { label: 'Wonder', persona: 'culture', destId: 'doha' },
+      { label: 'Awe', persona: 'adventurer', destId: 'doha' },
+      { label: 'Wonder', persona: 'culture', destId: 'cape-coast' },
     ],
   },
 ];
@@ -56,9 +56,9 @@ function tallyLeisurePersona(answers) {
   const winner = Object.entries(score).sort((a, b) => b[1] - a[1])[0][0];
   const winnerVibe = PERSONAS[winner].vibe;
   const candidates = Object.entries(destScore)
-    .filter(([id]) => getDestination(id)?.vibe === winnerVibe)
+    .filter(([id]) => getDestination(id)?.vibe.includes(winnerVibe))
     .sort((a, b) => b[1] - a[1]);
-  const destinationId = candidates.length ? candidates[0][0] : DESTINATIONS.find((d) => d.vibe === winnerVibe).id;
+  const destinationId = candidates.length ? candidates[0][0] : DESTINATIONS.find((d) => d.vibe.includes(winnerVibe)).id;
   return { persona: winner, destinationId };
 }
 
@@ -93,7 +93,7 @@ function renderPersonaGate(mountId) {
   function renderGateStep() {
     progressBar.style.width = '0%';
     stepsHost.innerHTML = `
-      <div class="eyebrow">Two clicks, then we'll get out of your way</div>
+      <div class="eyebrow">Two clicks and we'll be out of your way</div>
       <h3>What's this trip for?</h3>
       <p>Answer a few quick questions and we'll tailor what you see — or skip straight to browsing.</p>
       <div class="persona-gate__type-options">
@@ -171,7 +171,7 @@ function renderPersonaGate(mountId) {
         </div>
       </div>
       <div class="stack-lg" style="align-items:center;">
-        <a href="search.html?${params.toString()}" class="btn btn-primary btn-block" style="max-width:320px;">Plan This Trip</a>
+        <a href="index.html?${params.toString()}#plan-trip" class="btn btn-primary btn-block" style="max-width:320px;">Plan This Trip</a>
         <button class="btn btn-ghost" id="persona-continue" type="button">Just show me the homepage</button>
       </div>
     `;
@@ -190,7 +190,7 @@ function renderPersonaGate(mountId) {
         <p style="max-width:420px;margin:0 auto 28px;">${info.tagline} We'll pre-fill Business class and flag your request for priority handling.</p>
       </div>
       <div class="stack-lg" style="align-items:center;">
-        <a href="search.html?corporate=1" class="btn btn-primary btn-block" style="max-width:320px;">Start a Corporate Request</a>
+        <a href="index.html?corporate=1#plan-trip" class="btn btn-primary btn-block" style="max-width:320px;">Start a Corporate Request</a>
         <button class="btn btn-ghost" id="persona-continue" type="button">Just show me the homepage</button>
       </div>
     `;
@@ -233,7 +233,7 @@ function applyPersonaPersonalization() {
         <div class="eyebrow" style="margin-bottom:6px;">Welcome back, corporate traveler</div>
         <p style="margin:0;max-width:480px;">${info.tagline}</p>
       </div>
-      <a href="search.html?corporate=1" class="btn btn-primary btn-sm">Start a Corporate Request</a>
+      <a href="index.html?corporate=1#plan-trip" class="btn btn-primary btn-sm">Start a Corporate Request</a>
     `;
   } else {
     const info = PERSONAS[persona.persona];

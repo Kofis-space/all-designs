@@ -5,11 +5,11 @@
 // ============================================================
 
 const SITE_CONFIG = {
-  // Full international format, digits only, no + no spaces (e.g. Nigeria number: "2348012345678")
-  whatsappNumber: '2348000000000',
+  // Full international format, digits only, no + no spaces
+  whatsappNumber: '2347070076442',
 
   // Default pre-filled WhatsApp message. {trip} is replaced with a trip summary when available.
-  whatsappMessage: "Hi Namani Travels! I'm interested in booking a trip.{trip}",
+  whatsappMessage: "Hi Namani Travels & Tours! I'm interested in booking a trip.{trip}",
 
   // Formspree form endpoint — replace with your real form ID from formspree.io (Step 3 in SETUP.md)
   formspreeEndpoint: 'https://formspree.io/f/YOUR_FORM_ID',
@@ -17,11 +17,13 @@ const SITE_CONFIG = {
   // Google Apps Script Web App URL that appends leads to a Google Sheet (Step 4 in SETUP.md)
   googleSheetsWebAppUrl: 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec',
 
-  instagramHandle: '@namanitravels',
-  instagramUrl: 'https://instagram.com/namanitravels',
+  instagramHandle: '@namani_travels',
+  instagramUrl: 'https://instagram.com/namani_travels',
 
-  brandName: 'Namani Travels',
-  supportHoursNote: 'within 24 hours (Mon–Sat)',
+  email: 'namanitravelsandtour@gmail.com',
+
+  brandName: 'Namani Travels & Tours',
+  supportHoursNote: 'within the hour',
 };
 
 function buildWhatsAppLink(customMessage) {

@@ -14,8 +14,12 @@ function initPassportIntro() {
   }
 
   document.body.style.overflow = 'hidden';
+  let dismissed = false;
 
   function dismiss() {
+    if (dismissed) return;
+    dismissed = true;
+    clearTimeout(autoDismissTimer);
     scene.classList.add('is-hidden');
     document.body.style.overflow = '';
     sessionStorage.setItem('namani-passport-seen', '1');
@@ -30,7 +34,7 @@ function initPassportIntro() {
   });
 
   scene.querySelector('#passport-skip')?.addEventListener('click', dismiss);
-  setTimeout(dismiss, 3400);
+  const autoDismissTimer = setTimeout(dismiss, 3400);
 }
 
 function checkRetakeQuizHash() {

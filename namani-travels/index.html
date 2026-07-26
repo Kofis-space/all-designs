@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Namani Travels — Namani Means Peace</title>
-<meta name="description" content="Namani Travels plans adventurous, unhurried trips — search flights, get a real human quote, and let us handle the rest." />
+<title>Namani Travels &amp; Tours — Life Is Not Perfect, But Your Trip Can Be</title>
+<meta name="description" content="Namani Travels & Tours plans your trip end to end — flights, visas, insurance, hotels, and more — with a real travel professional on the other end, not a bot." />
 <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body data-page="home">
@@ -13,15 +13,12 @@
   <div class="passport-scene" id="passport-intro">
     <div class="passport">
       <div class="passport__inside">
-        <h3>Namani Travels</h3>
-        <p>Namani means peace. Let's go find some, somewhere new.</p>
+        <h3>Namani Travels &amp; Tours</h3>
+        <p>Life is not perfect, but your trip can be.</p>
         <div class="passport__stamp">FLY<br/>NAMANI</div>
       </div>
       <div class="passport__cover">
-        <div class="emblem globe-loader">
-          <span class="globe-loader__globe"></span>
-          <span class="globe-loader__orbit" data-icon="plane"></span>
-        </div>
+        <div class="emblem" data-icon="namaniMark"></div>
         <h2>Namani</h2>
         <span>Travel Document</span>
       </div>
@@ -38,7 +35,7 @@
 
   <main>
     <!-- HERO -->
-    <section class="hero">
+    <section class="hero" id="plan-trip">
       <div class="hero__bg hero__bg--slideshow">
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Panoramic_view_of_Oia%2C_Santorini_island_%28Thira%29%2C_Greece.jpg/1920px-Panoramic_view_of_Oia%2C_Santorini_island_%28Thira%29%2C_Greece.jpg" alt="Santorini, Greece" />
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Bali%2C_rice_terraces_1.jpg/1920px-Bali%2C_rice_terraces_1.jpg" alt="Bali, Indonesia" />
@@ -47,19 +44,40 @@
       </div>
 
       <div class="container">
-        <div class="hero__content reveal is-visible">
-          <span class="eyebrow">Adventurous, unhurried travel</span>
-          <h1>Namani means peace. Now let's go find some, somewhere new.</h1>
-          <p>Tell us the trip you're picturing — we handle flights, timing, and the thousand tiny details. Real humans, real quotes, no bots.</p>
+        <div id="hero-search-section">
+          <div class="hero__content reveal is-visible">
+            <h1>Life is not perfect, but your trip can be.</h1>
+            <p>Tell us the trip you're picturing — we handle flights, timing, and the thousand tiny details. Travel professionals, real quotes, no bots.</p>
 
-          <div class="hero__stats">
-            <div><strong>25+</strong><span>Destinations curated</span></div>
-            <div><strong>1,200+</strong><span>Trips planned</span></div>
-            <div><strong>&lt;24h</strong><span>Average response time</span></div>
+            <div class="hero__stats">
+              <div><strong>25+</strong><span>Destinations curated</span></div>
+              <div><strong>1,200+</strong><span>Trips planned</span></div>
+              <div><strong>&lt;1h</strong><span>Average response time</span></div>
+            </div>
           </div>
+
+          <div id="home-search-widget"></div>
         </div>
 
-        <div id="home-search-widget"></div>
+        <div id="hero-quote-section" hidden>
+          <div class="text-center" style="max-width:600px;margin:0 auto 40px;">
+            <span class="eyebrow" style="justify-content:center;">Almost there</span>
+            <h1>Let's get your quote sorted.</h1>
+            <p>No flight results here — just confirm the details below and we'll come back to you directly with real options and real prices.</p>
+          </div>
+
+          <div class="two-col" style="align-items:start;">
+            <div>
+              <div id="quote-quiz-context"></div>
+              <div id="quote-summary"></div>
+            </div>
+            <div id="quote-form-panel"></div>
+          </div>
+
+          <p class="text-center" style="margin-top:24px;">
+            <button class="btn btn-ghost" id="quote-back-to-search" type="button">← Edit search</button>
+          </p>
+        </div>
       </div>
     </section>
 
@@ -76,7 +94,7 @@
         <div class="grid grid-4 reveal-stagger" id="trust-strip">
           <div class="text-center">
             <div class="trust-icon" data-icon="person"></div>
-            <h3 style="font-size:1rem;margin-top:10px;">Real humans, not bots</h3>
+            <h3 style="font-size:1rem;margin-top:10px;">Travel professionals, not bots</h3>
             <p style="font-size:.88rem;">Every request gets a real agent, not an auto-reply.</p>
           </div>
           <div class="text-center">
@@ -110,9 +128,10 @@
         </div>
         <div class="filter-row reveal" id="home-filter-row">
           <button class="filter-pill is-active" data-vibe="all">All</button>
-          <button class="filter-pill" data-vibe="beach" data-icon="beach">Beach</button>
+          <button class="filter-pill" data-vibe="beach" data-icon="beach">Beach please</button>
           <button class="filter-pill" data-vibe="city" data-icon="city">City Escape</button>
-          <button class="filter-pill" data-vibe="adventure" data-icon="adventure">Adventure</button>
+          <button class="filter-pill" data-vibe="adventure" data-icon="adventure">Adventures</button>
+          <button class="filter-pill" data-vibe="honeymoon" data-icon="honeymoon">Honeymoon</button>
           <button class="filter-pill" data-vibe="culture" data-icon="culture">Culture</button>
         </div>
         <div class="carousel-controls">
@@ -136,7 +155,7 @@
         <div class="grid grid-3 reveal-stagger">
           <div class="card">
             <div class="card__body">
-              <span class="badge badge--beach" style="margin-bottom:14px;" data-icon="beach">Bali</span>
+              <span class="badge badge--beach" style="margin-bottom:14px;" data-icon="beach">Maldives</span>
               <p style="font-size:1rem;color:var(--text);">"Sent them one voice note about wanting to 'disappear for a week' and they came back with the exact right trip. Didn't lift a finger after that."</p>
               <div class="card__meta"><span>— Amara O.</span><span>★★★★★</span></div>
             </div>
@@ -150,7 +169,7 @@
           </div>
           <div class="card">
             <div class="card__body">
-              <span class="badge badge--adventure" style="margin-bottom:14px;" data-icon="adventure">Kenya</span>
+              <span class="badge badge--adventure" style="margin-bottom:14px;" data-icon="adventure">Nairobi</span>
               <p style="font-size:1rem;color:var(--text);">"Answered a couple of quick questions on the site as a joke during a boring meeting. Three weeks later I was in the Mara."</p>
               <div class="card__meta"><span>— Chidi N.</span><span>★★★★★</span></div>
             </div>
@@ -165,7 +184,7 @@
         <h2>Ready when you are.</h2>
         <p>Search a route or just say hi — however you'd rather start.</p>
         <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
-          <a href="search.html" class="btn btn-primary">Plan My Trip</a>
+          <a href="#plan-trip" class="btn btn-primary">Plan My Trip</a>
           <a href="#" id="cta-whatsapp" class="btn btn-outline">Message Us on WhatsApp</a>
         </div>
       </div>
@@ -181,11 +200,27 @@
   <script src="assets/js/airports.js"></script>
   <script src="assets/js/common.js"></script>
   <script src="assets/js/search-widget.js"></script>
+  <script src="assets/js/quote.js"></script>
   <script src="assets/js/quiz.js"></script>
   <script src="assets/js/animations.js"></script>
   <script>
+    function showHomeQuotePanel(queryString) {
+      document.getElementById('hero-search-section').hidden = true;
+      document.getElementById('hero-quote-section').hidden = false;
+      initQuotePanel(queryString);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
-      renderSearchWidget('home-search-widget');
+      renderSearchWidget('home-search-widget', {
+        onSubmit: (params) => showHomeQuotePanel(params.toString()),
+      });
+
+      document.getElementById('quote-back-to-search').addEventListener('click', () => {
+        document.getElementById('hero-quote-section').hidden = true;
+        document.getElementById('hero-search-section').hidden = false;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
 
       const carousel = document.getElementById('home-carousel');
       function paintCarousel(vibe) {
@@ -205,6 +240,11 @@
       document.getElementById('carousel-next').addEventListener('click', () => carousel.scrollBy({ left: 300, behavior: 'smooth' }));
 
       document.getElementById('cta-whatsapp').href = buildWhatsAppLink();
+
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('fromWidgetSubmit') === '1') {
+        showHomeQuotePanel(window.location.search.slice(1));
+      }
     });
   </script>
 </body>
