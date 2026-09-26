@@ -19,16 +19,19 @@ function renderHeader() {
     (l) => `<li><a href="${l.href}" class="${l.page === current ? 'is-active' : ''}">${l.label}</a></li>`
   ).join('');
 
+  const isHome = current === 'home';
+
   mount.innerHTML = `
-    <header class="nav" id="site-nav">
+    <header class="nav${isHome ? ' nav--transparent' : ''}" id="site-nav">
       <div class="container nav__inner">
         <a href="index.html" class="nav__logo">
-          ${iconSpan('namaniMark', 'nav__logo-mark')} Namani
+          <span class="nav__logo-row">${iconSpan('namaniMark', 'nav__logo-mark')}<span class="nav__logo-text">Namani</span></span>
+          <span class="nav__logo-tagline">Travels &amp; Tours</span>
         </a>
         <ul class="nav__links">${navItems}</ul>
         <div class="nav__actions">
           <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode"></button>
-          <a href="index.html#plan-trip" class="btn btn-primary btn-sm nav__cta">Plan My Trip</a>
+          <a href="index.html#plan-trip" class="btn btn-outline btn-sm nav__cta">Plan Your Journey</a>
           <button class="nav__burger" id="nav-burger" aria-label="Open menu">
             <span></span><span></span><span></span>
           </button>
@@ -37,12 +40,15 @@ function renderHeader() {
     </header>
     <div class="mobile-drawer" id="mobile-drawer">
       <div class="mobile-drawer__top">
-        <a href="index.html" class="nav__logo">${iconSpan('namaniMark', 'nav__logo-mark')} Namani</a>
+        <a href="index.html" class="nav__logo">
+          <span class="nav__logo-row">${iconSpan('namaniMark', 'nav__logo-mark')}<span class="nav__logo-text">Namani</span></span>
+          <span class="nav__logo-tagline">Travels &amp; Tours</span>
+        </a>
         <button class="mobile-drawer__close" id="drawer-close" aria-label="Close menu">&times;</button>
       </div>
       <nav>${NAV_LINKS.map((l) => `<a href="${l.href}" class="${l.page === current ? 'is-active' : ''}">${l.label}</a>`).join('')}</nav>
       <div class="mobile-drawer__footer">
-        <a href="index.html#plan-trip" class="btn btn-primary btn-block">Plan My Trip</a>
+        <a href="index.html#plan-trip" class="btn btn-primary btn-block">Plan Your Journey</a>
         <button class="theme-toggle" id="theme-toggle-mobile" aria-label="Toggle dark mode" style="align-self:center;"></button>
       </div>
     </div>
@@ -58,7 +64,10 @@ function renderFooter() {
       <div class="container">
         <div class="footer__grid">
           <div>
-            <div class="footer__brand">${iconSpan('namaniMark', 'footer__brand-mark')}${SITE_CONFIG.brandName}</div>
+            <div class="footer__brand">
+              <span class="footer__brand-row">${iconSpan('namaniMark', 'footer__brand-mark')}Namani</span>
+              <span class="footer__brand-tagline">Travels &amp; Tours</span>
+            </div>
             <p style="max-width:280px;">We plan trips that feel like exhaling — unhurried, entirely yours.</p>
             <div class="social-row">
               <a href="${SITE_CONFIG.instagramUrl}" target="_blank" rel="noopener" aria-label="Instagram">${iconSpan('instagram')}</a>
